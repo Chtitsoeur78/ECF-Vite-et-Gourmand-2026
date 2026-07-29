@@ -1,0 +1,113 @@
+body {
+    font-size: 62.5%; /*/* 62.5% de 16px (la norme) = 10px */
+    font-family: 'Times New Roman', Times, serif;
+    margin: 0;
+    background: #f0f0f0;
+}
+
+h1 {
+text-align: center;
+margin: 1rem 1rem;
+}
+
+/*---Galerie---*/
+.galerie {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+    padding: 1rem;
+    max-width: 1000px;
+    margin: auto;
+}
+
+.galerie img {
+    width: 300px; 
+    height: 200px;
+    display: block;
+    object-fit: cover;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.3s, ease;
+}
+
+.galerie img:hover {
+    transform: scale(1.5);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.galerie.figure {
+    position: relative;
+    overflow: hidden;
+    margin: 0;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);    
+}
+
+
+.galerie.figcaption {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    background: rgba(0,0,0,0.6);
+    color:white;
+    text-align: center;
+    font-size: 1.4rem;
+    padding: 0.5rem;
+    opacity: 0;
+    transform: translateY(100%);
+    transition: all 0.3s ease;
+}
+
+.galerie.figcaption:hover figcaption{
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.galerie.figure:hover img {
+  transform: scale(1.5);
+}
+
+
+
+/*---Fenêtre Lightbox---*/
+.lightbox {
+    display: none; /* cachée par défaut */
+    position: fixed;
+    z-index: 1000;
+    inset: 0;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.9);
+    justify-content: center;
+    align-items: center;
+}
+
+.lightbox img {
+    max-width: 200%;
+    max-height: 200%;
+    opacity: 1;
+    border-radius: 1rem;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+}
+
+.lightbox.active {
+    display: flex;
+}
+
+.close {
+position: absolute;
+top: 20px;
+right: 30px;
+font-size: 4rem;
+color: white;
+font-weight: bold;
+cursor: pointer;
+transition: 0.3s;
+}
+
+.close:hover {
+      color: #ccc;
+}

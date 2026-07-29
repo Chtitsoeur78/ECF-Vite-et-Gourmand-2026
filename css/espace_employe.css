@@ -1,0 +1,25 @@
+h2 {
+  max-width: 100%;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  line-height: 1.1;
+}
+
+.commandes_en_cours,
+.precisions_menus,
+.menus {
+  width: 100%;
+  overflow-x: auto;
+}
+
+table {
+  width: max-content;
+  min-width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 0.4rem;
+  white-space: nowrap;
+}

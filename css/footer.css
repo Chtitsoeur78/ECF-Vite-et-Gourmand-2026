@@ -1,0 +1,100 @@
+/* RESET BOX MODEL */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+footer {
+  font-size: 14px;
+  width: 100%;
+}
+
+.footer_conteneur {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.6rem;
+  width: 100%;
+  padding: 0.7rem;
+  background-color: #c8ff95;
+}
+
+.horaires,
+.cgv,
+.mentions_legales,
+.admin {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-width: 0;
+  text-align: center;
+}
+
+.horaires {
+  flex-direction: column;
+  gap: 0.2rem;
+  font-size: clamp(9px, 2.5vw, 13px);
+}
+
+h3 {
+  line-height: 1.1;
+  margin: 0;
+}
+
+.admin {
+  grid-column: 2;
+  grid-row: 2;
+  justify-self: center;
+}
+
+.bouton_admin {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ccff99;
+  border: 1px solid #064e38;
+  color: #064e38;
+  border-radius: 1.5rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-align: center;
+  width: 100%;
+  max-width: 180px;
+  min-height: 55x;
+  padding: 12px 24px;
+  font-size: clamp(6px, 1.8vw, 11px);
+  line-height: 1.1;
+  text-decoration: none;
+  opacity: 0.9;
+}
+
+.bouton_footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #44ca68;
+  border: 0.1rem solid #064e38;
+  color: #ffffff;
+  border-radius: 1.5rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+  text-align: center;
+  width: 100%;
+  max-width: 120px;
+  min-height: 45px;
+  padding: 0.4rem;
+  margin: 0;
+  font-size: clamp(8px, 2.2vw, 12px);
+  line-height: 1.1;
+  text-decoration: none;
+}
+
+.bouton_footer:hover,
+.bouton_admin:hover {
+  background-color: #00b050;
+  transform: scale(1.05);
+  transition: 0.2s;
+}
+

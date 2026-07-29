@@ -1,0 +1,63 @@
+h2 {
+  overflow-wrap: break-word;
+  word-break: break-word;
+  line-height: 1.1;
+}
+
+.creation_compte {
+  display: block;
+  text-align: center;
+  margin: 2rem auto;
+  padding: 1rem;
+  border: 0.1px solid #064e38;
+}
+
+.creation_compte p {
+  margin: 1rem 0;
+}
+
+.bouton_employes {
+  display: inline-block;
+  visibility: visible;
+  opacity: 1;
+  text-decoration: none;
+  min-height: auto;
+  font-size: 1rem;
+  padding: 1.5rem 1rem;
+  max-width: 90%;
+  min-width: 0ch;
+  background-color: #44ca68;
+  border: 1px solid #064e38;
+  color: #ffffff;
+  border-radius: 1.5rem;
+  font-weight: bold;
+  word-break: normal;
+  overflow-wrap: break-word;
+  text-transform: uppercase;
+  cursor: pointer;
+  text-align: center;
+}
+
+.bouton_employes:hover {
+  background-color: #00b050;
+}
+
+.commandes_en_cours,
+.precisions_menus,
+.menus {
+  width: 100%;
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  min-width: 700px;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 0.5rem;
+  font-size: 0.9rem;
+  text-align: center;
+}

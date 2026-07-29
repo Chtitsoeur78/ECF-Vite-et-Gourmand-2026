@@ -1,0 +1,196 @@
+.bouton_mentions_legales {
+  display: block;
+  visibility: visible;
+  opacity: 1;
+  margin: 2rem auto;
+  padding: 1rem 2rem;
+  text-decoration: none;
+  min-height: auto;
+  font-size: 1.2rem;
+  padding: 2rem 1.7rem;
+  min-width: 14rem;
+  background-color: #44ca68;
+  border: 1px solid #064e38;
+  color: #ffffff;
+  border-radius: 1.5rem;
+  font-weight: bold;
+  word-break: normal;
+  overflow-wrap: break-word;
+  text-transform: uppercase;
+  cursor: pointer;
+  text-align: center;
+}
+
+.bouton_meentions_legales:hover {
+  background-color: #00b050;
+}
+
+.texte-cgv {
+  padding: 20px;
+}
+
+.mentions_legales {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 0; /* évite les débordements */
+}
+
+/* Code pour Tablettes : largeur entre 762 et 1023 pixels*/
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  .header-conteneur {
+    padding: 1rem 1.5rem;
+    gap: 1rem;
+  }
+
+  .logo img {
+    max-width: 170px;
+  }
+
+  .utilisateur-gauche {
+    flex: 1;
+  }
+
+  .utilisateur-droite {
+    flex: 1;
+    max-width: 280px;
+    padding: 1rem;
+    font-size: 0.9rem;
+  }
+}
+/* Code pour Ordinateur : largeur supérieure à 1023 pixels (à partir de 1024 pixels */
+@media screen and (min-width: 1024px) {
+  body {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .header-conteneur {
+    padding: 1.5rem 2rem;
+    gap: 2rem;
+  }
+
+  .logo img {
+    max-width: 220px;
+  }
+
+  .utilisateur-gauche {
+    flex: 1;
+  }
+
+  .utilisateur-droite {
+    flex: 1;
+    max-width: 340px;
+    padding: 1.5rem;
+    font-size: 1rem;
+  }
+
+  .visually-secondary {
+    font-size: 1.5rem;
+  }
+
+  .bloc-bouton {
+    width: 100%;
+    align-items: stretch;
+    gap: 0.8rem;
+  }
+
+  .bouton1,
+  .bouton2 {
+    width: 50%;
+    font-size: 1rem;
+    min-height: 60px;
+    padding: 1rem;
+  }
+
+  .bouton3 {
+    font-size: 1.2rem;
+    min-width: 16rem;
+    min-height: 4rem;
+  }
+
+  .slogan-conteneur {
+    max-width: 900px;
+    min-height: 280px;
+    padding: 2.5rem;
+  }
+
+  .slogan {
+    font-size: 2.5rem;
+    line-height: 1.4;
+  }
+
+  .pub-conteneur {
+    flex-wrap: nowrap;
+    gap: 1.5rem;
+    padding: 2rem;
+  }
+
+  .ponctualite-article,
+  .qualite-produit-article,
+  .equipe-experimentee-article {
+    max-width: 32%;
+    min-height: 260px;
+    font-size: 1.2rem;
+    padding: 1rem;
+  }
+
+  .ponctualite-img,
+  .qualite-produit-img,
+  .equipe-experimentee-img {
+    max-width: 50%;
+  }
+
+  .menus {
+    display: flex;
+    justify-content: center;
+    margin: 2rem 0 3rem;
+  }
+
+  .presentation {
+    padding: 2rem;
+  }
+
+  .presentation-contenu {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    align-items: stretch;
+  }
+
+  .historique,
+  .equipe,
+  .lieu {
+    min-height: 260px;
+    padding: 1.2rem;
+    font-size: 1rem;
+    margin: 0;
+  }
+
+  .avis-clients {
+    padding: 2rem;
+  }
+
+  .avis-clients-conteneur {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .avis-clients-contenu {
+    min-height: 200px;
+    padding: 1rem;
+    font-size: 1rem;
+  }
+
+  .footer-conteneur {
+    grid-template-columns: 1.2fr 1fr 1fr;
+    gap: 1rem;
+    padding: 1.5rem 2rem;
+  }
+
+  .horaires {
+    font-size: 1rem;
+    gap: 1rem;
+    padding: 1rem;
+  }
+}

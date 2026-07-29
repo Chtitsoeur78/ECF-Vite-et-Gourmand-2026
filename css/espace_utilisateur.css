@@ -1,0 +1,60 @@
+
+.titre_header {
+  flex: 1;
+  min-width: 0;
+}
+
+
+.espace_utilisateur {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 0;
+  flex: 1;
+}
+
+.donnees_personnelles,
+.commandes_en_cours,
+.commandes_terminees {
+  background-color: #dbeafe;
+  border: 0.1rem solid #064e38;
+  border-radius: 1.5rem;
+  padding: 1rem;
+  margin: 0.5rem;
+  font-size: 0.9rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+h1 {
+  margin: 0;
+}
+
+h2 {
+  overflow-wrap: break-word;
+  word-break: break-word;
+  line-height: 1.1;
+}
+
+.bouton_modifier {
+  display: inline-block;
+  text-decoration: none;
+  min-height: auto;
+  font-size: 1.2rem;
+  padding: 2rem 1.7rem;
+  min-width: 14rem;
+  background-color: #44ca68;
+  border: 0.1rem solid #064e38;
+  color: #ffffff;
+  border-radius: 1.5rem;
+  font-weight: bold;
+  word-break: normal;
+  overflow-wrap: break-word;
+  text-transform: uppercase;
+  cursor: pointer;
+  text-align: center;
+}
+
+.bouton_modifier:hover {
+  background-color: #00b050; /* un peu plus foncé au survol */
+}
