@@ -13,7 +13,6 @@
   font-size: 0.7rem; /* réduit pour tenir sur mobile */
   line-height: 1;
   text-align: center;
-  font-weight: bold;
   word-break: normal;
   overflow-wrap: break-word;
   cursor: pointer;
@@ -27,30 +26,21 @@
   background-color: #00b050; /* un peu plus foncé au survol */
 }
 
-.menu_du_moment {
+.menus_du_moment {
   padding: 20px;
 }
 
-.conteneur {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.contenu {
+.menu_contenu {
   display: flex;
   flex-direction: column;
   justify-content: center;
   margin: 2rem 0;
   border: 0.1rem solid #064e38;
   border-radius: 1.5rem;
+  background-color: #dbeafe;
   min-height: 180px;
   padding: 1rem;
   font-size: 0.9rem;
-}
-
-h1 {
-  margin: 0;
 }
 
 h2 {
