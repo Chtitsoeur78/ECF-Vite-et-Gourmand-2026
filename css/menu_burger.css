@@ -1,10 +1,10 @@
 .utilisateur_gauche {
-  width: 200px;
+  width: 250px;
   height: 100%;
   position: fixed;
   z-index: 1000;
   top: 0;
-  left: -200px;
+  left: -250px;
   background-color: #ccff99;
   padding-top: 1ch;
   padding-left: 20px;
@@ -15,9 +15,9 @@
 
 .utilisateur_gauche a {
   display: block;
-  padding: 8px 8px 8px 32px;
+  padding: 8px 8px 8px 45px;
   text-decoration: none;
-  font-size: 25px;
+  font-size: clamp(1rem, 5vw, 1.5rem);
   color: #818181;
   transition: 0.3s;
 }
@@ -29,7 +29,7 @@
 
 .utilisateur_gauche ul {
   list-style-type: none;
-  padding: 0;
+  padding-top: 5rem 0 0 0;
   margin: 0;
 }
 
@@ -40,7 +40,7 @@
 
 .utilisateur_gauche .close {
   position: absolute;
-  top: 10px;
+  top: 15px;
   right: 20px;
   font-size: 36px;
   background: none;
@@ -55,16 +55,13 @@
   justify-content: center;
   align-items: center;
   gap: 4px;
-  width: 70px;
-  height: 70px;
+  width: clamp(48px, 10vw, 70px);
+  height: clamp(48px, 10vw, 70px);
   padding: 0px;
   border: 1px solid #ccc;
   background-color: #ccff99;
   cursor: pointer;
-  flex: 0 0 70px;
-  position: fixed;
-  top: 60px;
-  left: 0;
+  flex: 0 0 auto;
   z-index: 1001;
 }
 
@@ -76,17 +73,9 @@
   border-radius: 2px;
 }
 
-/* Code pour Tablettes : largeur entre 762 et 1023 pixels*/
 @media screen and (min-width: 768px) {
-  .presentation_contenu,
-  .avis_clients_conteneur {
-    flex-direction: row;
-  }
-
-  .historique,
-  .equipe,
-  .lieu,
-  .avis_clients_contenu {
-    flex: 1;
+  .utilisateur_gauche {
+    width: 280px;
+    left: -280px;
   }
 }
