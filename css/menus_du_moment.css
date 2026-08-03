@@ -28,13 +28,15 @@
 
 .menus_du_moment {
   padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .menu_contenu {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin: 2rem 0;
+  margin: 2rem 1rem;
   border: 0.1rem solid #064e38;
   border-radius: 1.5rem;
   background-color: #dbeafe;
@@ -45,6 +47,15 @@
 
 h2 {
   overflow-wrap: break-word;
-  word-break: break-word;
   line-height: 1.1;
+}
+
+@media screen and (min-width: 768px) {
+  .menu_contenu {
+    margin: 2rem 5rem;
+  }
+
+  h1 {
+    white-space: nowrap;
+  }
 }

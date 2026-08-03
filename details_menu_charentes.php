@@ -1,7 +1,6 @@
 <?php
 session_start();
 ?>
-
 <!doctype html>
 <html lang="fr">
   <head>
@@ -28,7 +27,7 @@ session_start();
             <?php include "menu_burger.php"; ?>
         </section>
         <section class="centre">
-            <h1>Détails du menu Sud_Ouest</h1>
+            <h1>Détails du menu Sud-Ouest</h1>
         </section>
         <section class="logo"> 
             <img src="images/logo1.png" alt="Logo de Vite et Gourmand, la plate-forme pour manger vite et bien" >
@@ -36,8 +35,9 @@ session_start();
     </header>    
     <main>
         <section class="details_menus">
-              <h2>Ce mois ci :  Menu charentais  </h2>
-              <h3>Galerie - photos</h3>
+              <h2>Ce mois-ci :  Menu charentais  </h2>
+              <h3>Galerie photos</h3>
+    <p>Cliquez sur chaque photo pour lire son commentaire.</p>
     <div class="galerie">
     <figure>
         <img src="images/charentes/menu_charentais.png" alt="Présentation du menu charentais de Vite & Gourmand comprenant au choix des huîtres de Marennes-Oléron ou des grattons charentais en entrée, une mouclade charentaise en plat principal, puis une galette charentaise ou un millas charentais en dessert">
@@ -68,26 +68,33 @@ session_start();
           <h3>Liste des plats du menu : </h3>
               <h4>Entrées </h4>
                 <ul>
-                <li>+ Huitres de Marennes / Oléron</li>
-                <li>+ Grattons charentais</li>
+                    <li>Huîtres de Marennes - Oléron</li>
+                    <li>Grattons charentais</li>
                 </ul>
-                <ul>
               <h4>Plat du Jour</h4>
-                <li>+ Mouclade charentaise</li>
+                <ul>
+                    <li>Mouclade charentaise</li>
                 </ul>
               <h4>Desserts</h4>
                 <ul>
-                <li>+ Galette charentaise</li>
-                <li>+ Millas charentais</li>
+                    <li>Galette charentaise</li>
+                    <li>Millas charentais</li>
                 </ul>
           <p>Nombre minimal de personnes : 4</p>
           <p>Prix pour le nombre minimal : 200 euros</p>
-          <p>Les allergènes : mollusques - gluten (farine de blé) - oeuf - lait </p>
-          <p>Conditions particulières : Le fait-tout dans lequel est livré la mouclade doit être rendu</p>
-          <p>Régime : Classique</p>
-          <p>Stock disponible : dans la mesure du possible, les plats sont cuisinés à la demande</p>        
+          <p>Les allergènes :</p>
+                <ul>
+                    <li>mollusques : Huîtres de Marenne-Oléron, Mouclade (moules)</li>
+                    <li>gluten (farine de blé) : Galette charentaise, millas charentais</li>
+                    <li>oeufs : Galette charentaise, millas charentaisGalette charentaise, millas charentais</li></li>
+                    <li>lait : Galette charentaise, millas charentais</li>
+                </ul>
+            <p>Malgré toute notre vigilance, des traces d'autres allergènes peuvent être présentes en raison des conditions de préparation. Pour toute allergie alimentaire, n'hésitez pas à nous contacter avant de passer votre commande.</p>
+            <p>Conditions particulières : Le faitout dans lequel est livrée la mouclade doit être rendu</p>
+            <p>Régime : Classique</p>
+            <p>Stock disponible : dans la mesure du possible, les plats sont cuisinés à la demande</p>        
               <?php if (isset($_SESSION['id_utilisateur'])): ?>
-              <a href="formulaire_commande.php?menu=menu_charentes" class="bouton_commande">COMMANDE</a>
+              <a href="formulaire_commande.php?menu=menu_charentes" class="bouton_commande">COMMANDER</a>
               <?php else: ?>
               <a href="formulaire_connexion_utilisateur.php" class="bouton_commande">SE CONNECTER POUR COMMANDER</a>
               <?php endif; ?>

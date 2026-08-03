@@ -36,9 +36,9 @@
           <p>Entre le 15 août et le 15 septembre 2026, Vite et Gourmand vous propose :</p>
       </section>
       <section>
-         <h2>Les menus "Sud-Ouest"</h2>
+         <h2>Les Menus "Sud-Ouest"</h2>
             <article class="menu_contenu">
-                <h3>Menu "Charentes"</h3>
+                <h3>Menu charentais</h3>
                   <p>Offrez-vous ce mois-ci une escapade gourmande entre terre et mer avec notre menu charentais.</p>
                   <p>Notre mouclade, préparée à base de moules fraîches et d'une sauce onctueuse et épicée à point, vous permettra de partager un menu gourmand aux accents d'Atlantique.</p>
                   <p>Nombre minimal de personnes : 4</p>
