@@ -10,7 +10,7 @@ session_start();
 <meta name="description" content="Vite et Gourmand est une plate-forme de commande de repas utilisable dans la région de Bordeaux.">
 <!-- liaison avec la page externe de css --> 
 <link rel="stylesheet" href="css/styles.css"> 
-<link rel="stylesheet" href="css/index.css">
+<link rel="stylesheet" href="css/index.css?v=2">
 <link rel="stylesheet" href="css/footer.css">
 <!-- Titre de la Page --> 
 <title>Vite et Gourmand : Mangeons vite et bien ! </title> 
@@ -27,7 +27,8 @@ session_start();
             <img class="logo_img" src="images/logo1.png" alt="Logo de Vite et Gourmand, la plate-forme pour manger vite et bien" >
        </section> 
         <nav class="utilisateur_droite" aria-label="Zone-utilisateur">
-            <h3>Espace Utilisateur</h3>
+            <h3>Espace <br>
+                Utilisateur</h3>
         <div class="bloc_bouton"> 
             <a href="formulaire_inscription.php" class="bouton_utilisateur">CRÉER UN COMPTE</a>
             <a href="formulaire_connexion_utilisateur.php" class="bouton_utilisateur">SE CONNECTER</a>
@@ -71,7 +72,7 @@ session_start();
         <a href="menus_du_moment.php" class="bouton_menus">DÉCOUVREZ NOS MENUS</a>
         </div>
         <!-- La présentation de l'entreprise -->
-        <section class="presentation">
+        <section>
             <h2>Qui sommes-nous ?</h2>
             <div class="presentation_contenu">
                 <section class="historique">
