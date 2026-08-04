@@ -28,35 +28,31 @@ header {
   text-decoration: underline;
 }
 
-.utilisateur_gauche,
-.logo,
-.utilisateur_droite {
-  display: flex;
-  flex: 1;
-  min-width: 0; 
+.logo {
   justify-content: center;
 }
 
-.logo {
-  align-items: center;
-}
-
-.logo img {
-  width: 20vw;
-  max-width: 60px;
-  height: auto;
+.utilisateur_gauche {
+  display: flex;
+  flex: 0 1 auto;
+  min-width: 0;
+  justify-content: center;
 }
 
 .utilisateur_droite {
+  display: flex;
   flex-direction: column;
+  flex: 0 1 auto;
   align-items: center;
-  text-align: center;
   gap: 0.5rem;
+  width: fit-content;
+  min-width: 0px;
   border: 0.1rem solid #064e38;
   border-radius: 1.5rem;
-  font-size: clamp(0.8rem, 2vw, 1rem);
-  padding: 1rem;
+  padding: 0;
   box-sizing: border-box;
+  margin-inline-end: 1rem;
+  margin-top: 1rem;
 }
 
 .sr_only {
@@ -74,9 +70,11 @@ header {
 .bloc_bouton {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  padding: 1rem 1rem;
   gap: 0.8rem;
-  width: 100%;
-  align-items: stretch;
+  width: fit-content;
+  max-width: 280px;
 }
 
 .bouton_contact,
@@ -105,6 +103,7 @@ header {
 
 .bouton_contact {
   display: inline-block;
+  text-decoration: none;
   width: 100%;
   height: auto;
   padding: 1.8rem;
@@ -140,7 +139,7 @@ header {
   gap: 0.5rem;
   flex-wrap: wrap;
   justify-content: center;
-  align-items: center;
+  align-items: stretch;
   text-align: center;
   min-width: 0;
   width: 100%;
@@ -210,7 +209,6 @@ header {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  min-width: 0; /* pour éviter le débordement */
 }
 
 .historique,
@@ -220,7 +218,7 @@ header {
   background-color: #dbeafe;
   border: 0.1rem solid #064e38;
   border-radius: 1.5rem;
-  padding: 0.6rem;
+  padding: 0.4rem;
   margin: 0.5rem;
   font-size: 0.9rem;
 }
@@ -321,11 +319,14 @@ h2 {
   }
 
   .pub_conteneur article {
-    padding: 1.2rem;
+    padding: 0.8rem;
+    min-height: 280px;
   }
 
   .pub_conteneur img {
-    max-width: 140px;
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
   }
 
   .pub_conteneur article p {
@@ -360,10 +361,7 @@ h2 {
     font-size: 1.8rem;
   }
 
-.utilisateur_droite {
-  padding: 1rem;
- }
-
-
-
+  .utilisateur_droite {
+    padding: 1rem;
+  }
 }
