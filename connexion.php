@@ -6,7 +6,7 @@ ini_set('error_log', __DIR__ . '/erreurs.log');
 $host = "localhost";
 $dbname = "vite_et_gourmand";
 $username = "dev_vg";
-$password = "VITEETGOURMANDBDD1738*";
+$password = "1738*CONNEXIONbdd";
 
 $options = [
     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,

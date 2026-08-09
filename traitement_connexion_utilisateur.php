@@ -12,6 +12,10 @@ $requete->execute([$email]);
 $utilisateur = $requete->fetch(); 
 
  if ($utilisateur && password_verify($mot_de_passe, $utilisateur["mot_de_passe"])) {
+
+        unset($_SESSION['id_salarie']);
+        unset($_SESSION['id_role']);    
+
         $_SESSION["id_utilisateur"] = $utilisateur["id_utilisateur"];
         $_SESSION["email"] = $utilisateur["email"];
         $_SESSION["prenom"] = $utilisateur["prenom"];
