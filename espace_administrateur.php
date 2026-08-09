@@ -1,7 +1,4 @@
 <?php
-session_start();
-?>
-<?php
 require_once 'connexion.php';
 $sql = "
 
@@ -10,7 +7,7 @@ $sql = "
         commandes.date_livraison,
         commune_gironde.commune_gironde AS ville_livraison,
         commandes.nom_menu,
-        commandes.nombre_personnes,
+        commandes.nb_personnes,
         commandes.prix_total,
         statut_commande.libelle_statut AS statut_commande,
         utilisateurs.nom AS nom_client
@@ -38,11 +35,11 @@ $sql_precision = "
         commandes.id_commande,
         commandes.date_livraison,
         commandes.nom_menu,
-        commandes.nombre_personnes,
-        commandes.nombre_entree1,
-        commandes.nombre_entree2,
-        commandes.nombre_dessert1,
-        commandes.nombre_dessert2
+        commandes.nb_personnes,
+        commandes.nb_entree1,
+        commandes.nb_entree2,
+        commandes.nb_dessert1,
+        commandes.nb_dessert2
         
         FROM commandes
 
@@ -59,11 +56,11 @@ $precision_commandes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 $sql_menus = "
     SELECT 
-        menus.id_menu,
-        menus.nom_menu,
+        menus.id_menus,
+        menus.titre_menus,
         menus.nb_personnes_minimum,
         menus.prix_par_personne_euros,
-        menus.description_menu,
+        menus.description,
         plat.nom_plat AS nom_plat,
         regime.libelle_regime AS nom_regime
     FROM menus
@@ -84,13 +81,12 @@ $menus = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
-      name="description_menu"
+      name="description"
       content="Vite et Gourmand est une plate-forme de commande de repas utilisable dans la région de Bordeaux."/>
     <!-- liaison avec la feuille de style externe de CSS -->
     <link rel="stylesheet" href="css/styles.css"/>
     <link rel="stylesheet" href="css/menu_burger.css"/>
     <link rel="stylesheet" href="css/espace_administrateur.css"/>
-    <link rel="stylesheet" href="css/footer.css"/>
     <!-- Titre de la Page -->
     <title>Vite et Gourmand - Espace Administrateur</title>
   </head>
@@ -106,18 +102,7 @@ $menus = $stmt->fetchAll(PDO::FETCH_ASSOC);
       <section class="logo">
         <img src="images/logo1.png" alt="Logo de Vite et Gourmand, la plate-forme pour manger vite et bien" >
       </section>
-       <?php if (
-            isset($_SESSION['id_salarie']) &&
-             $_SESSION['id_role'] == 1
-            ): ?>
-      <section class="zone_connexion">
-            <p>
-        Bonjour <?= htmlspecialchars($_SESSION["prenom"]) ?> 👋
-            </p>
-        <a href="deconnexion.php" class="bouton_deconnexion">Se déconnecter</a>
-        </section>
-        <?php endif; ?>
-        </header>
+         </header>
         <?php if (isset($_SESSION['message_succes'])): ?> 
         <p class="message_succes"> <?= $_SESSION['message_succes']; ?> </p> 
         <?php unset($_SESSION['message_succes']); ?> <?php endif; ?>
@@ -153,7 +138,7 @@ $menus = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <td><?= htmlspecialchars($commande["date_livraison"] ?? "", ENT_QUOTES, 'UTF-8') ?></td>
                 <td><?= htmlspecialchars($commande["ville_livraison"] ?? "", ENT_QUOTES, 'UTF-8') ?></td>
                 <td><?= htmlspecialchars($commande["nom_menu"] ?? "", ENT_QUOTES, 'UTF-8') ?></td>
-                <td><?= htmlspecialchars($commande["nombre_personnes"] ?? "", ENT_QUOTES, 'UTF-8') ?></td>
+                <td><?= htmlspecialchars($commande["nb_personnes"] ?? "", ENT_QUOTES, 'UTF-8') ?></td>
                 <td><?= number_format((float)($commande["prix_total"] ?? 0), 2, ',', ' ') ?> €</td>          
                 <td>
                 <?php $statut = trim($commande['statut_commande'] ?? ''); ?>
@@ -216,11 +201,11 @@ $menus = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <th>N° Commande</th>
                 <th>Date livraison</th>
                 <th>Type Menu</th>
-                <th>Nombre convives</th>
-                <th>Nombre Entrée n°1</th>
-                <th>Nombre Entrée n°2</th>
-                <th>Nombre Dessert n°1</th>
-                <th>Nombre Dessert n°2</th>
+                <th>Nb convives</th>
+                <th>Nb Entrée n°1</th>
+                <th>Nb Entrée n°2</th>
+                <th>Nb Dessert n°1</th>
+                <th>Nb Dessert n°2</th>
                 </tr>
             </thead>
             <tbody>
@@ -230,11 +215,11 @@ $menus = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <td><?= htmlspecialchars($commande["id_commande"] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
                 <td><?= htmlspecialchars($commande["date_livraison"] ?? "", ENT_QUOTES, 'UTF-8') ?></td>
                 <td><?= htmlspecialchars($commande["nom_menu"] ?? "", ENT_QUOTES, 'UTF-8') ?></td>
-                <td><?= htmlspecialchars($commande["nombre_personnes"] ?? "", ENT_QUOTES, 'UTF-8') ?></td>
-                <td><?= htmlspecialchars($commande["nombre_entree1"] ?? "", ENT_QUOTES, 'UTF-8') ?></td>
-                <td><?= htmlspecialchars($commande["nombre_entree2"] ?? "", ENT_QUOTES, 'UTF-8') ?></td>    
-                <td><?= htmlspecialchars($commande["nombre_dessert1"] ?? "", ENT_QUOTES, 'UTF-8') ?></td>     
-                <td><?= htmlspecialchars($commande["nombre_dessert2"] ?? "", ENT_QUOTES, 'UTF-8') ?></td>  
+                <td><?= htmlspecialchars($commande["nb_personnes"] ?? "", ENT_QUOTES, 'UTF-8') ?></td>
+                <td><?= htmlspecialchars($commande["nb_entree1"] ?? "", ENT_QUOTES, 'UTF-8') ?></td>
+                <td><?= htmlspecialchars($commande["nb_entree2"] ?? "", ENT_QUOTES, 'UTF-8') ?></td>    
+                <td><?= htmlspecialchars($commande["nb_dessert1"] ?? "", ENT_QUOTES, 'UTF-8') ?></td>     
+                <td><?= htmlspecialchars($commande["nb_dessert2"] ?? "", ENT_QUOTES, 'UTF-8') ?></td>  
                 </tr>
             <?php endforeach; ?>
             <?php else: ?>
@@ -257,25 +242,26 @@ $menus = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <th>Prix par personne en euro</th>
                 <th>Nom des plats</th>
                 <th>Nom du régime</th>
-                <th>Description_menu</th>
+                <th>Description</th>
                 </tr>
             </thead>
             <tbody>
             <?php foreach($menus as $menu): ?>
                 <tr>
-                <td><?= htmlspecialchars($menu["id_menu"] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
-                <td><?= htmlspecialchars($menu["nom_menu"] ?? "", ENT_QUOTES, 'UTF-8') ?></td>
+                <td><?= htmlspecialchars($menu["id_menus"] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
+                <td><?= htmlspecialchars($menu["titre_menus"] ?? "", ENT_QUOTES, 'UTF-8') ?></td>
                 <td><?= htmlspecialchars($menu["nb_personnes_minimum"] ?? "", ENT_QUOTES, 'UTF-8') ?></td>
                 <td><?= htmlspecialchars($menu["prix_par_personne_euros"] ?? "", ENT_QUOTES, 'UTF-8') ?></td>
                 <td><?= htmlspecialchars($menu["nom_plat"] ?? "", ENT_QUOTES, 'UTF-8') ?></td>
                 <td><?= htmlspecialchars($menu["nom_regime"] ?? "", ENT_QUOTES, 'UTF-8') ?></td>
-                <td><?= htmlspecialchars($menu["description_menu"] ?? "", ENT_QUOTES, 'UTF-8') ?></td>
+                <td><?= htmlspecialchars($menu["description"] ?? "", ENT_QUOTES, 'UTF-8') ?></td>
                 </tr>
             <?php endforeach; ?>
             </tbody>
             </table>
         </section>
             <h2>ESPACE "VALIDATION DES AVIS CLIENT"</h2>
+           
         </section>
         </section>      
     </main>
