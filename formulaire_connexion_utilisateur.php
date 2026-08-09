@@ -33,16 +33,16 @@ if (isset($_SESSION['id_utilisateur'])) {
       </section>
     </header> 
     <main>
-        <form action="traitement_connexion_utilisateur.php" method="post">
+        <form action="traitement_connexion_utilisateur.php" method="post" autocomplete="off">
         <fieldset>
             <legend class="legend">Direction votre espace - utilisateur</legend>
         <p>
             <label for="email">E-MAIL * : </label>
-            <input type="email" required id="email" name="email" placeholder="xxm@yy.zz" >
+            <input type="email" required id="email" name="email" autocomplete="off" placeholder="xxm@yy.zz" >
         </p>
         <p>
             <label for="mot_de_passe">MOT DE PASSE * :</label>
-            <input type="password" required id="mot_de_passe" name="mot_de_passe" minlength="10" maxlength="80" placeholder="xxxxxxxxxxxxx"/>
+            <input type="password" required id="mot_de_passe" name="mot_de_passe" minlength="10" maxlength="80" autocomplete="off" placeholder="xxxxxxxxxxxxx"/>
         </p>
         <p>
             <button type="submit" name="OK" value="Envoyer"> Connectez vous</button>    

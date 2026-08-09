@@ -39,15 +39,16 @@ if (isset($_SESSION['id_role'])) {
     </header> 
     <main>
         <form action="traitement_connexion_administration.php" method="post">
+        <form action="traitement_connexion_administration.php" method="post" autocomplete="off">
         <fieldset>
             <legend class="legend">Direction votre Espace - Administration</legend>
         <p>
             <label for="email">E-MAIL * : </label>
-            <input type="email" required id="email" name="email" placeholder="xx@yy.zz">
+            <input type="email" required id="email" name="email" autocomplete="off" placeholder="xx@yy.zz">
         </p>
         <p>
             <label for="mot_de_passe">MOT DE PASSE * :</label>
-            <input type="password" required id="mot_de_passe" name="mot_de_passe" minlength="10" maxlength="80" placeholder="xxxxxxxxxxxxx">
+            <input type="password" required id="mot_de_passe" name="mot_de_passe" minlength="10" maxlength="80" autocomplete="off" placeholder="xxxxxxxxxxxxx">
         </p>
         <p>
             <button type="submit" name="OK" value="Envoyer"> Connectez vous</button>    
