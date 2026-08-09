@@ -1,14 +1,12 @@
-
 .titre_header {
   flex: 1;
   min-width: 0;
 }
 
-
 .espace_utilisateur {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 1rem;
   min-width: 0;
   flex: 1;
 }
@@ -20,10 +18,21 @@
   border: 0.1rem solid #064e38;
   border-radius: 1.5rem;
   padding: 1rem;
-  margin: 0.5rem;
+  margin: 0;
   font-size: 0.9rem;
   width: 100%;
   box-sizing: border-box;
+}
+
+.commandes_en_cours,
+.commandes_terminees {
+  overflow-x: auto;
+}
+
+.commandes_en_cours table,
+.commandes_terminees table {
+  min-width: 50rem;
+  border-collapse: collapse;
 }
 
 h1 {
@@ -37,24 +46,27 @@ h2 {
 }
 
 .bouton_modifier {
-  display: inline-block;
-  text-decoration: none;
-  min-height: auto;
-  font-size: 1.2rem;
-  padding: 2rem 1.7rem;
-  min-width: 14rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: #44ca68;
   border: 0.1rem solid #064e38;
-  color: #ffffff;
   border-radius: 1.5rem;
+  color: #ffffff;
   font-weight: bold;
+  width: fit-content;
+  max-width: 100%;
+  padding: 0.8rem 1.2rem;
+  margin: 1rem auto 0; 
+  font-size: 0.9rem;
+  line-height: 1.2;
+  text-align: center;
   word-break: normal;
   overflow-wrap: break-word;
-  text-transform: uppercase;
   cursor: pointer;
-  text-align: center;
+  text-transform: uppercase;
+  text-decoration: none;
 }
-
 .bouton_modifier:hover {
   background-color: #00b050; /* un peu plus foncé au survol */
 }

@@ -54,10 +54,10 @@ $utilisateur = $requete->fetch(PDO::FETCH_ASSOC);
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- liaison avec la page externe de css -->
-   
-    <link rel="stylesheet" href="css/styles.css"/>
+       <link rel="stylesheet" href="css/styles.css"/>
     <link rel="stylesheet" href="css/menu_burger.css"/>
     <link rel="stylesheet" href="css/espace_utilisateur.css"/>
+    <link rel="stylesheet" href="css/footer.css"/>
     <title>
       Vite & Gourmand - Espace Utilisateur 
     </title>
@@ -78,7 +78,7 @@ $utilisateur = $requete->fetch(PDO::FETCH_ASSOC);
 <main>
     <section class="espace_utilisateur">
         <section class="espace_utilisateur_contenu">
-            <h2>Données personnelles</h2>
+            <h3>Vos données personnelles</h3>
         <section class="donnees_personnelles">
             <p>Raison sociale : <?= htmlspecialchars($utilisateur["raison_sociale"] ?? "")?></p>
             <p>Pseudo :         <?= htmlspecialchars($utilisateur["pseudo"] ?? "")?></p>
@@ -90,11 +90,10 @@ $utilisateur = $requete->fetch(PDO::FETCH_ASSOC);
             <p>Numéro + Nom de voie : <?= htmlspecialchars($utilisateur["livraison_adresse"] ?? "")?></p>
             <p>Code Postal : <?= htmlspecialchars($utilisateur["livraison_code_postal"] ?? "")?></p>
             <p>VILLE : <?= htmlspecialchars($utilisateur["commune_gironde"] ?? "")?></p>
-        
             <a href="modifier_utilisateur.php" class="bouton_modifier">Modifier vos Données Personnelles </a>
         </section>
+         <h3>Les Commandes en cours</h3>
         <section class="commandes_en_cours">
-        <h3>Les Commandes en cours</h3>
             <table>
             <thead>
                 <tr>
@@ -128,7 +127,7 @@ $utilisateur = $requete->fetch(PDO::FETCH_ASSOC);
        </section>
        <section>
         <h3>Les Commandes terminées</h3>
-        <section class="Commandes_terminees">
+        <section class="commandes_terminees">
            <table>
             <thead>
                 <tr>
@@ -154,8 +153,10 @@ $utilisateur = $requete->fetch(PDO::FETCH_ASSOC);
                 <td><?= htmlspecialchars($commande["nom_menu"] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
                 <td><?= htmlspecialchars($commande["nb_personnes"] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
                 <td><?= htmlspecialchars($commande["prix_menu"] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
-                <td><?= htmlspecialchars($commande["prix_total"] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
-                                </tr>
+                <td><?= htmlspecialchars($commande["prix_total"] ?? '', ENT_QUOTES, 'UTF-8') ?></td>      
+                <td><a href="avis_client.php?id_commande=<?= urlencode($commande["id_commande"] ?? "") ?>"
+        class="bouton_avis">Donner un avis</a></td>
+                </tr>           
             <?php endforeach; ?>
             <?php endif; ?>
             </tbody>

@@ -190,38 +190,16 @@ if ($adresse_facturation_identique == 1) {
             ':date_inscription' => $date_inscription
         ]);
         
-// récupération de l'id utilisateur créé
+    // récupération de l'id utilisateur créé
         $id_utilisateur = $pdo->lastInsertId();
 
-// stockage en session
+        // stockage en session
         $_SESSION['id_utilisateur'] = $id_utilisateur;
+        $_SESSION['prenom'] = $prenom;
 
-//Envoi du mail de bienvenue
-        $prenom_html = htmlspecialchars($prenom, ENT_QUOTES, 'UTF-8');
-        $nom_html = htmlspecialchars($nom, ENT_QUOTES, 'UTF-8');
-
-        $to = $email;
-        $sujet = "Bienvenue sur notre site Vite et Gourmand";
-        $message = "
-        <html>
-        <head>
-        <title>Bienvenue sur notre site Vite et Gourmand</title>
-        </head>
-        <body>
-        <h1>Bienvenue chez Vite et Gourmand $prenom_html $nom_html ! </h1>
-        <p>Merci pour votre inscription.</p>
-        <p>Nous sommes ravis de vous compter parmi nous et ferons tout pour vous satisfaire</p>
-        <p>A très vite ! </p>
-        <p>José TOC et l'équipe Vite et Gourmand</p>
-        </body>
-        </html>
-        ";
+    // Envoi du mail de confirmation d'inscription
+    require_once __DIR__ . '/email_confirmation_inscription.php';
     
-    $headers = "MIME-Version: 1.0\r\n";
-    $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
-    $headers .= "From: Vite et Gourmand <contact@viteetgourmand.com>\r\n";
-
-    mail($to, $sujet, $message, $headers);
     header("Location: espace_utilisateur.php");
     exit;
 
