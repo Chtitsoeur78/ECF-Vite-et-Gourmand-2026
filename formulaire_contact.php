@@ -12,7 +12,7 @@
 <title>Formulaire de Contact</title>
 </head>
 <body>
-<!-- header : l'en-tête de la page d'accueil --> 
+<!-- header : l'en-tête de la page --> 
     <header class="header_conteneur">
      <section class="menu_burger">
         <?php include "menu_burger.php"; ?>
@@ -25,13 +25,14 @@
       </section>
     </header> 
     <main>
+        <section class="presentation">
            <p>Une question ? Une remarque ? Un retour d'expérience ? Une amélioration ? Un problème ? </p>
            <p>Dans tous les cas, n'hesitez pas à nous contacter avec ce formulaire ... </p>
            <p>A bientôt ! </p>
-
+        </section>
     <form action="traitement_contact.php" method="post">
         <fieldset>
-            <legend class="legend">Vos Données Personnelles</legend>
+            <legend class="legend">Vos données personnelles</legend>
         <p>
             <label for="pseudo">PSEUDO : </label>
             <input type="text" id="pseudo" name="pseudo" placeholder="Pseudonyme">
@@ -52,7 +53,7 @@
         <fieldset>
             <legend class="legend">Votre message</legend> 
         <p>
-            <label for="sujet"> Quel est le sujet de votre message ? *</label>
+            <label for="sujet"> QUEL EST LE SUJET DE VOTRE MESSAGE ? *</label>
             <select name="sujet" id="sujet" required>
             <option value="" disabled selected hidden> Choisissez le sujet de votre message</option>       
             <option value="probleme_commande">Un problème avec une commande</option>
@@ -65,13 +66,13 @@
             </select>
         </p>
         <p>
-            <label for="titre">Titre * :</label>
+            <label for="titre">TITRE * :</label>
             <input type="text" required id="titre" name="titre" placeholder="xxxxxxxxxxxxx"/>
         </p>
-        <p><label for="message">Votre texte * </label></p>
+        <p><label for="message">VOTRE TEXTE * </label></p>
             <textarea id="message" required name="message" placeholder="Bonjour ! Je prends contact avec vous car ... "></textarea>
         <p>
-            <label>Date d'envoi :</label>
+            <label>DATE D'ENVOI :</label>
             <input type="date" id="date_envoi" name="date_envoi"/>
         </p>
         <p>

@@ -2,3 +2,14 @@ h1 {
   margin: 0;
   line-height: 1.2;
 }
+
+.presentation{
+  margin: 1rem;
+}
+
+textarea {
+  width: 100%;
+  max-width: 500px;
+  min-height: 100px;
+  box-sizing: border-box;
+}
