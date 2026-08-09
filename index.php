@@ -33,12 +33,12 @@ session_start();
             <a href="formulaire_inscription.php" class="bouton_utilisateur">CRÉER UN COMPTE</a>
             <a href="formulaire_connexion_utilisateur.php" class="bouton_utilisateur">SE CONNECTER</a>
         </div>
-        <?php if (!empty($_SESSION["prenom"])): ?>
+       <?php if (isset($_SESSION['id_utilisateur'])): ?>
         <div class="zone_connexion">
             <p>
         Bonjour <?= htmlspecialchars($_SESSION["prenom"]) ?> 👋
             </p>
-        <a href="deconnexion_utilisateur.php" class="deconnexion">Se déconnecter</a>
+        <a href="deconnexion.php" class="deconnexion">Se déconnecter</a>
         </div>
         <?php endif; ?>
         </nav>
@@ -83,11 +83,12 @@ session_start();
                 </section>
                 <section class="equipe">
                     <h3>Notre équipe</h3>
-                </section>
+                    <img src="images/equipe_vg_horizontal.png" alt="L'équipe de Vite et Gourmand : A gauche, Julie Durand, responsable logistique. Au centre José Toc, cuisinier, gérant, administrateur. A droite, Jean-Marie Detrot, chauffeur."> 
+                </section> 
                 <section class="lieu">
                     <h3>Pour nous trouver ...</h3>
                     <p>Notre adresse : 23 place des Quinconces à Bordeaux</p>                
-                    <p>Notre zone de livraison : Toutes les communes du département de la Gironde</p>
+                    <p>Notre zone de livraison : toutes les communes du département de la Gironde</p>
                 </section>
             </div>
         </section>

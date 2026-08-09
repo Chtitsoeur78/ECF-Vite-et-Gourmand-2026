@@ -4,13 +4,10 @@ header {
 }
 
 .zone_connexion {
-  margin-top: 20px;
-
   display: flex;
   flex-direction: row;
-
   align-items: center;
-  gap: 10px;
+  gap: 5px;
 }
 
 .zone_connexion p {
@@ -32,6 +29,11 @@ header {
   justify-content: center;
 }
 
+.logo img {
+  width: auto;
+  height: clamp(75px, 10vw, 160px);
+}
+
 .utilisateur_gauche {
   display: flex;
   flex: 0 1 auto;
@@ -47,8 +49,6 @@ header {
   gap: 0.5rem;
   width: fit-content;
   min-width: 0px;
-  border: 0.1rem solid #064e38;
-  border-radius: 1.5rem;
   padding: 0;
   box-sizing: border-box;
   margin-inline-end: 1rem;
@@ -153,11 +153,20 @@ header {
   flex-direction: column;
   align-items: center;
   text-align: center;
+  gap: 1rem;
   background-color: #dbeafe;
   border: 0.1rem solid #064e38;
   border-radius: 1.5rem;
   padding: 0.8rem;
   min-width: 0;
+}
+
+.pub_conteneur article {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
 }
 
 .pub_conteneur img {
@@ -198,17 +207,12 @@ header {
   font-size: 1.5rem;
 }
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
 .presentation_contenu,
 .avis_clients_conteneur {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  margin: 0 0.3rem;
 }
 
 .historique,
@@ -218,9 +222,21 @@ header {
   background-color: #dbeafe;
   border: 0.1rem solid #064e38;
   border-radius: 1.5rem;
-  padding: 0.4rem;
-  margin: 0.5rem;
+  padding: 0.5rem;
   font-size: 0.9rem;
+}
+
+.equipe {
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.equipe img {
+  width: 50%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  border-radius: 1.5rem;
 }
 
 h2 {
@@ -237,9 +253,11 @@ h2 {
     font-size: 16px;
   }
 
-  .logo img {
-    max-width: 90px;
+ .logo img {
+    height: 130px;
+    width: auto;
   }
+}
 
   .zone_connexion {
     justify-content: center;
@@ -280,8 +298,7 @@ h2 {
 
   .presentation_contenu,
   .avis_clients_conteneur {
-    max-width: 900px;
-    margin: 0 auto;
+    margin: 0 0.5rem;
   }
 
   .historique,
@@ -300,7 +317,8 @@ h2 {
   }
 
   .logo img {
-    max-width: 200px;
+    height: 200px;
+    width: auto;
   }
 
   .bouton_contact,
@@ -346,6 +364,7 @@ h2 {
   .presentation_contenu,
   .avis_clients_conteneur {
     max-width: 1100px;
+    margin: 0 0.5rem;
   }
 
   .historique,
