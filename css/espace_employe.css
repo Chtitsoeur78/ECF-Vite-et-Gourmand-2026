@@ -23,3 +23,19 @@ td {
   padding: 0.4rem;
   white-space: nowrap;
 }
+
+.header_conteneur > .zone_connexion {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.zone_connexion p {
+  margin: 0;
+}
+
+.bouton_deconnexion {
+  padding: 0.6rem 1rem;
+  font-weight: bold;
+}
