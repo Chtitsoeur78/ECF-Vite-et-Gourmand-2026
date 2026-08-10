@@ -384,3 +384,390 @@ h2 {
     padding: 1rem;
   }
 }
+______________________________________________________
+header {
+  font-size: 14px;
+  min-width: 0;
+}
+
+.zone_connexion {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+}
+
+.zone_connexion p {
+  margin: 0;
+  font-weight: bold;
+}
+
+.deconnexion {
+  text-decoration: none;
+  color: #444;
+  font-size: 0.9rem;
+}
+
+.deconnexion:hover {
+  text-decoration: underline;
+}
+
+.logo {
+  justify-content: center;
+}
+
+.logo img {
+  width: auto;
+  height: clamp(75px, 10vw, 160px);
+}
+
+.utilisateur_gauche {
+  display: flex;
+  flex: 0 1 auto;
+  min-width: 0;
+  justify-content: center;
+}
+
+.utilisateur_droite {
+  display: flex;
+  flex-direction: column;
+  flex: 0 1 auto;
+  align-items: center;
+  gap: 0.5rem;
+  width: fit-content;
+  min-width: 0px;
+  padding: 0;
+  box-sizing: border-box;
+  margin-inline-end: 1rem;
+  margin-top: 1rem;
+}
+
+.sr_only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.bloc_bouton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem 1rem;
+  gap: 0.8rem;
+  width: fit-content;
+  max-width: 280px;
+}
+
+.bouton_contact,
+.bouton_utilisateur,
+.bouton_menus {
+  background-color: #44ca68;
+  border: 0.1rem solid #064e38;
+  color: #ffffff;
+  border-radius: 1.5rem;
+  font-weight: bold;
+  word-break: normal;
+  overflow-wrap: break-word;
+  text-transform: uppercase;
+  cursor: pointer;
+  text-align: center;
+}
+
+.bouton_menus {
+  display: inline-block;
+  text-decoration: none;
+  min-height: auto;
+  font-size: 1.2rem;
+  padding: 2rem 1.7rem;
+  min-width: 14rem;
+}
+
+.bouton_contact {
+  display: inline-block;
+  text-decoration: none;
+  width: 100%;
+  height: auto;
+  padding: 1.8rem;
+  margin: 0;
+  font-size: clamp(10px, 2vw, 14px);
+}
+
+.bouton_utilisateur {
+  text-decoration: none;
+  width: 100%;
+  min-height: auto;
+  transition: background-color 0.3s;
+  white-space: normal;
+  margin: 0 auto;
+  font-size: clamp(0.6rem, 1.2vw, 0.9rem);
+  padding: 0.8rem 1.1rem;
+}
+
+.bouton_contact:hover,
+.bouton_utilisateur:hover,
+.bouton_menus:hover {
+  background-color: #00b050; /* un peu plus foncé au survol */
+}
+
+.menus {
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+.pub_conteneur {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: stretch;
+  text-align: center;
+  min-width: 0;
+  width: 100%;
+  padding: 0.9rem;
+  margin: auto;
+}
+
+.pub_conteneur article {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1rem;
+  background-color: #dbeafe;
+  border: 0.1rem solid #064e38;
+  border-radius: 1.5rem;
+  padding: 0.8rem;
+  min-width: 0;
+}
+
+.pub_conteneur article {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.pub_conteneur img {
+  width: 100%;
+  max-width: 70px;
+  height: auto;
+  object-fit: cover;
+}
+
+.pub_conteneur article p {
+  font-size: 0.75rem;
+  text-align: center;
+  min-width: 0; /* pour éviter le débordement */
+}
+
+.slogan_conteneur {
+  display: flex;
+  justify-content: center; /* centre horizontalement */
+  align-items: center; /* centre verticalement */
+  text-align: center;
+  gap: 1rem;
+  width: 90%;
+  max-width: 420px;
+  min-height: 180px;
+  padding: 1.2rem;
+  box-sizing: border-box;
+  margin: 0 auto;
+}
+
+.slogan {
+  font-size: 1.5rem;
+  min-width: 0;
+  text-align: center;
+}
+
+.slogan p {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.presentation_contenu,
+.avis_clients_conteneur {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 0 0.3rem;
+}
+
+.historique,
+.equipe,
+.lieu,
+.avis_clients_contenu {
+  background-color: #dbeafe;
+  border: 0.1rem solid #064e38;
+  border-radius: 1.5rem;
+  padding: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.equipe {
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.equipe img {
+  width: 50%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  border-radius: 1.5rem;
+}
+
+h2 {
+  overflow-wrap: break-word;
+  word-break: break-word;
+  line-height: 1.1;
+  padding: 0.5rem;
+  margin: 0.5rem;
+}
+
+/* TABLETTES */
+@media screen and (min-width: 768px) {
+  header {
+    font-size: 16px;
+  }
+
+ .logo img {
+    height: 130px;
+    width: auto;
+  }
+}
+
+  .zone_connexion {
+    justify-content: center;
+  }
+
+  .utilisateur_droite {
+    font-size: 1rem;
+    padding: 1.2rem;
+  }
+
+  .bloc_bouton {
+    max-width: 280px;
+  }
+
+  .pub_conteneur {
+    flex-wrap: nowrap;
+    gap: 1rem;
+    max-width: 900px;
+  }
+
+  .pub_conteneur img {
+    max-width: 110px;
+  }
+
+  .pub_conteneur article p {
+    font-size: 0.9rem;
+  }
+
+  .slogan_conteneur {
+    max-width: 650px;
+    min-height: 220px;
+  }
+
+  .slogan,
+  .slogan p {
+    font-size: 2rem;
+  }
+
+  .presentation_contenu,
+  .avis_clients_conteneur {
+    margin: 0 0.5rem;
+  }
+
+  .historique,
+  .equipe,
+  .lieu,
+  .avis_clients_contenu {
+    font-size: 1rem;
+    padding: 1rem;
+  }
+}
+
+/* ORDINATEURS */
+@media screen and (min-width: 1024px) {
+  header {
+    font-size: 18px;
+  }
+
+  .logo img {
+    height: 200px;
+    width: auto;
+  }
+
+  .bouton_contact,
+  .bouton_utilisateur {
+    font-size: 1rem;
+  }
+
+  .bouton_menus {
+    font-size: 1.4rem;
+    padding: 2rem 2.5rem;
+  }
+
+  .pub_conteneur {
+    max-width: 1100px;
+    gap: 1.5rem;
+  }
+
+  .pub_conteneur article {
+    padding: 0.8rem;
+    min-height: 280px;
+  }
+
+  .pub_conteneur img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+  }
+
+  .pub_conteneur article p {
+    font-size: 1rem;
+  }
+
+  .slogan_conteneur {
+    max-width: 800px;
+    min-height: 260px;
+  }
+
+  .slogan,
+  .slogan p {
+    font-size: 2.5rem;
+  }
+
+  .presentation_contenu,
+  .avis_clients_conteneur {
+    max-width: 1100px;
+    margin: 0 0.5rem;
+  }
+
+  .historique,
+  .equipe,
+  .lieu,
+  .avis_clients_contenu {
+    font-size: 1.05rem;
+    padding: 1.2rem;
+    margin: 1rem;
+  }
+
+  h2 {
+    font-size: 1.8rem;
+  }
+
+  .utilisateur_droite {
+    padding: 1rem;
+  }
+}
