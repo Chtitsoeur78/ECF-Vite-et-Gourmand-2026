@@ -26,8 +26,8 @@
         <img src="images/logo1.png" alt="Logo de Vite et Gourmand, la plate-forme pour manger vite et bien"/>
       </section>
     </header>
-     <main class="texte_cgv">
-      <section>
+     <main>
+      <section class="texte_cgv">
         <h2>1. Objet des conditions générales de vente</h2>
         <p>
           Les présentes Conditions Générales de Vente (ci-après "CGV") ont pour
@@ -55,12 +55,12 @@
           préavis.
         </p>
       </section>
-      <section>
+      <section class="texte_cgv">
         <h2>2. Coordonnées de la société</h2>
         <p>
           Le Site Internet www.viteetgourmand.eu a été édité par la Vite et
-          Gourmand SARL, Société A Responsabilité Limitée au capital social de 5
-          500 euros, dont le siège social est sis au 23 place des Quinconces
+          Gourmand SARL, Société A Responsabilité Limitée au capital social de 
+          5 500 euros, dont le siège social est sis au 23 place des Quinconces
           33000 BORDEAUX, inscrite au Registre du Commerce et des Sociétés de
           Bordeaux sous le numéro 178 938 057 et dont le numéro de TVA
           intracommunautaire est FR38 781 705 059.
@@ -71,8 +71,7 @@
           formulaire de contact du Site
         </p>
       </section>
-      <section>
-        <h2>3. Offre de Vite et Gourmand</h2>
+      <section class="texte_cgv">
         <p>
           La société Vite et Gourmand propose à la livraison une gamme de repas,
           à destination des entreprises et des particuliers (ci-après qualifiés
@@ -106,7 +105,7 @@
           Internet.
         </p>
       </section>
-      <section>
+      <section class="texte_cgv">
         <h2>4. Disponibilité des produits</h2>
         <p>
           Les offres de Produits présentées par Vite et Gourmand sur le Site
@@ -126,7 +125,7 @@
           Site Internet.
         </p>
       </section>
-      <section>
+      <section class="texte_cgv">
         <h2>5. Accès au site internet</h2>
         <p>
           Le Client est seul responsable de la mise en place de moyens
@@ -150,7 +149,7 @@
           Internet à la consultation ou du service de prise de commande.
         </p>
       </section>
-      <section>
+      <section class="texte_cgv">
         <h2>6. Tarifs</h2>
         <p>
           Les prix de vente des Produits commercialisés sur le Site Internet
@@ -174,7 +173,7 @@
           par le Client).
         </p>
       </section>
-      <section>
+      <section class="texte_cgv">
         <h2>7. Commandes</h2>
         <h3>Prise de commande et validation</h3>
         <p>
@@ -304,7 +303,7 @@
           des présentes CGV.
         </p>
       </section>
-      <section>
+     <section class="texte_cgv">
         <h2>8. Livraisons</h2>
         <h3>Modalités de livraison</h3>
         <p>
@@ -358,7 +357,7 @@
           commandes déjà validées.
         </p>
       </section>
-      <section>
+      <section class="texte_cgv">
         <h2>9. Service Client et réclamations</h2>
         <p>
           Pour toute question ou réclamation, nous vous remercions d'utiliser la
@@ -375,7 +374,7 @@
           préciser le numéro de la commande et la date de livraison.
         </p>
       </section>
-      <section>
+      <section class="texte_cgv">
         <h2>10. Force majeure</h2>
         <p>
           Le cas de force majeure est défini comme un événement irrésistible et
@@ -383,7 +382,7 @@
           force majeure entraînerait la suspension des présentes CGV.
         </p>
       </section>
-      <section>
+     <section class="texte_cgv">
         <h2>11. Modifications des Conditions Générales de Ventes</h2>
         <p>
           Vite et Gourmand se réserve le droit de modifier ou de mettre à jour
@@ -394,7 +393,7 @@
           de ces modifications.
         </p>
       </section>
-      <section>
+       <section class="texte_cgv">
         <h2>12. Réserve de Propriété</h2>
         <p>
           Sauf renonciation préalable et écrite, Vite et Gourmand conserve la
@@ -403,7 +402,7 @@
           frais, taxes et contributions obligatoires.
         </p>
       </section>
-      <section>
+       <section class="texte_cgv">
         <h2>13. Stricte exécution / Non-renonciation</h2>
         <p>
           le fait pour l'une des Parties de ne pas se prévaloir auprès de
@@ -412,7 +411,7 @@
           obligation et à son respect lors de commandes ultérieures.
         </p>
       </section>
-      <section>
+      <section class="texte_cgv">
         <h2>14. Non-validité partielle</h2>
         <p>
           Dans le cas où l'une ou plusieurs stipulations des présentes CGV sont
@@ -422,7 +421,7 @@
           force et leur portée.
         </p>
       </section>
-      <section>
+      <section class="texte_cgv">
         <h2>15. Conciliation amiable préalable</h2>
         <p>
           Préalablement à toute action en Justice, les deux Parties s'engagent à
@@ -430,7 +429,7 @@
           qui les oppose.
         </p>
       </section>
-      <section>
+      <section class="texte_cgv">
         <h2>16. Loi applicable</h2>
         <p>Les présentes CGV sont soumises au Droit français.</p>
         <p>

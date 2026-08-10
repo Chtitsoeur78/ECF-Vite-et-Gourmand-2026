@@ -1,10 +1,13 @@
 h2 {
+  font-size: 1.3rem;
+  line-height: 1.2;
+  text-align: center;
   overflow-wrap: break-word;
   word-break: break-word;
   line-height: 1.1;
 }
 
-.bouton_employes {
+.bouton_admin {
   display: inline-block !important;
   visibility: visible !important;
   opacity: 1 !important;
@@ -25,12 +28,16 @@ h2 {
   text-align: center;
 }
 
-.bouton_employe:hover {
+.bouton_admin:hover {
   background-color: #00b050;
 }
 
-.mentions_legales {
-  padding: 0 20px;
-  margin: 20px auto;
-  max-width: 1000px;
+.texte_mentionslegales {
+  border: 1px solid #064e38;
+  background-color: #dbeafe;
+  border-radius: 1.5rem;
+  margin: 1rem;
+  padding: 1rem;
+  box-sizing: border-box;
+  overflow-wrap: break-word;
 }

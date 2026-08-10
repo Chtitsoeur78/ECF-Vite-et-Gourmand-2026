@@ -27,7 +27,7 @@
       </section>
     </header>
     <main>
-      <section>
+      <section class="texte_mentionslegales">
         <h2>1. Éditeur du site</h2>
         <p>
           Le présent site, accessible à l'adresse www.viteetgourmand.eu est
@@ -52,26 +52,26 @@
         </p>
         <p>Maintenance et évolution du site : FAST DEV. - Céline BELMER</p>
       </section>
-      <section>
+       <section class="texte_mentionslegales">
         <h2>2. Directeur de la Publication</h2>
         <p>José TOC, gérant</p>
-        <p>Photographies : Julie DURANT</p>
+        <p>Photographies : Julie DURAND</p>
       </section>
-      <section>
+       <section class="texte_mentionslegales">
         <h2>3. Hébergement du site</h2>
         <p>Le site est hébergé par :</p>
         <p>GANDI SAS</p>
         <p>63 / 65 boulevard Masséna 75013 PARIS</p>
         <p>Téléphone : 01 49 23 57 84</p>
       </section>
-      <section>
+       <section class="texte_mentionslegales">
         <h2>4. Activité</h2>
         <p>
           Vite et Gourmand propose des services de traiteur à domicile, incluant
           la préparation et la livraison de repas
         </p>
       </section>
-      <section>
+      <section class="texte_mentionslegales">
         <h2>5. Propriété intellectuelle</h2>
         <p>
           L'ensemble des contenus présents sur le site (textes, images, logo,
@@ -83,7 +83,7 @@
         </p>
         <p>Celle - ci peut être demandée par le formulaire de contact.</p>
       </section>
-      <section>
+       <section class="texte_mentionslegales">
         <h2>5. Propriété intellectuelle</h2>
         <p>
           L'ensemble des contenus présents sur le site (textes, images, logo,
@@ -95,7 +95,7 @@
         </p>
         <p>Celle - ci peut être demandée par le formulaire de contact.</p>
       </section>
-      <section>
+      <section class="texte_mentionslegales">
         <h2>6. Gestion des données personnelles</h2>
         <p>
           Afin de pouvoir bénéficier du service de commande sur le site
@@ -141,7 +141,7 @@
           <li>de limitation du traitement et de la portabilité</li>
         </ul>
       </section>
-      <section>
+      <section class="texte_mentionslegales">
         <h2>7. Les cookies</h2>
         <p>
           Notre site internet utilise des cookies. Un cookie est un fichier
@@ -164,7 +164,7 @@
           tous, de les refuser tous ou de gérer les cookies.
         </p>
       </section>
-      <section>
+       <section class="texte_mentionslegales">
         <h2>8. Responsabilité</h2>
         <p>
           L'éditeur du site met tout en oeuvre pour assurer l'exactitude des
@@ -175,7 +175,7 @@
           omissions.
         </p>
       </section>
-      <section>
+       <section class="texte_mentionslegales">
         <h2>9. Droit applicable</h2>
         <p>Le présent site est soumis au droit français. Tout litige relèvera de la compétence du Tribunal de Commerce de Bordeaux
         </p>
