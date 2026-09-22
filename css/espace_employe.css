@@ -7,7 +7,7 @@ h2 {
 
 .commandes_en_cours,
 .precisions_menus,
-.menus {
+.menus .validation_avis .avis_refuse {
   width: 100%;
   overflow-x: auto;
 }
@@ -24,18 +24,35 @@ td {
   white-space: nowrap;
 }
 
-.header_conteneur > .zone_connexion {
-  flex-direction: column;
+.actions_menus {
+  display: flex;
+  flex-wrap: wrap;
   justify-content: center;
+  align-items: end;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.actions_menus form {
+  display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 0.5rem;
 }
 
-.zone_connexion p {
-  margin: 0;
+.bouton_menu {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  border: 1px solid #064e38;
+  border-radius: 0.5rem;
+  background-color: #44ca68;
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
 }
 
-.bouton_deconnexion {
-  padding: 0.6rem 1rem;
-  font-weight: bold;
+.bouton_menu:hover {
+  background-color: #c8ff95;
 }

@@ -116,67 +116,40 @@ if (!$id_commune) {
         )";
             
     try {
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute([
-            ':civilite' => $civilite,
-            ':prenom' => $prenom,
-            ':nom' => $nom,
-            ':id_role' => $id_role,
-            ':email' => $email,
-            ':mot_de_passe' => $mot_de_passe_hash,
-            ':telephone' => $telephone,
-            ':adresse' => $adresse,
-            ':code_postal' => $code_postal,
-            ':id_commune' => $id_commune,
-            ':date_embauche' => $date_embauche,
-            ':type_contrat' => $type_contrat,
-            ':fonction' => $fonction,
-            ':date_prise_fonction' => $date_prise_fonction,
-            ':date_fin_contrat' => $date_fin_contrat,
-            ':date_creation_compte' => $date_creation_compte
-        ]);
-    
-    // récupération de l'id employé créé    
+    $stmt = $pdo->prepare($sql);
+
+    $stmt->execute([
+        ':civilite' => $civilite,
+        ':prenom' => $prenom,
+        ':nom' => $nom,
+        ':id_role' => $id_role,
+        ':email' => $email,
+        ':mot_de_passe' => $mot_de_passe_hash,
+        ':telephone' => $telephone,
+        ':adresse' => $adresse,
+        ':code_postal' => $code_postal,
+        ':id_commune' => $id_commune,
+        ':date_embauche' => $date_embauche,
+        ':type_contrat' => $type_contrat,
+        ':fonction' => $fonction,
+        ':date_prise_fonction' => $date_prise_fonction,
+        ':date_fin_contrat' => $date_fin_contrat,
+        ':date_creation_compte' => $date_creation_compte
+    ]);
+
+    // Récupération de l'id employé créé
     $id_salarie = $pdo->lastInsertId();
-   
-//Envoi du mail de bienvenue
-        $prenom_html = htmlspecialchars($prenom, ENT_QUOTES, 'UTF-8');
-        $nom_html = htmlspecialchars($nom, ENT_QUOTES, 'UTF-8');
 
-        $to = $email;
-        $sujet = "Bienvenue dans notre entreprise Vite et Gourmand";
-        $message = "
-        <html>
-        <head>
-        <title>Bienvenue dans notre entreprise Vite et Gourmand</title>
-        </head>
-        <body>
-        <h1>Bienvenue chez Vite et Gourmand $prenom_html $nom_html ! </h1>
-        <p>Je suis heureux de vous accueillir chez Vite et Gourmand.</p>
-        <p>En tant qu'administrateur du site, et pour que vous puissiez commencer votre mission dans de bonnes conditions, je vous ai créé un compte Employé.</p>
-        <p>Votre identifiant sera votre boite mail (prenom.nom@viteetgourmand.com) et je vous communiquerai votre mot de passe verbalement lors de notre prochaine rencontre. </p>
-        <p>Bienvenue !  </p>
-        <p>José TOC </p>
-        <p>Gérant - Administrateur de Vite et Gourmand</p>
-        </body>
-        </html>
-        ";
-    
-    $headers = "MIME-Version: 1.0\r\n";
-    $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
-    $headers .= "From: José Toc <jose.toc@viteetgourmand.com>\r\n";
+    // Envoi du mail de bienvenue
+    require_once __DIR__ . '/email_confirmation_creation_compte_employe.php';
 
-    if (mail($to, $sujet, $message, $headers)) {
-    $_SESSION['message_succes'] = "Compte employé créé avec succès. Un email de bienvenue a été envoyé.";
-} else {
-    $_SESSION['message_succes'] = "Compte employé créé avec succès, mais l'email de bienvenue n'a pas pu être envoyé.";
-}
+    $_SESSION['message_succes'] = "Compte employé créé avec succès.";
 
-header("Location: espace_administrateur.php");
-exit;
+    header("Location: espace_administrateur.php");
+    exit;
 
 } catch (PDOException $e) {
+
     error_log("Erreur PDO : " . $e->getMessage());
     echo "Une erreur est survenue lors de la création du compte employé.";
 }
-?>
