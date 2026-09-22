@@ -1,5 +1,6 @@
 <?php
 require_once "connexion.php";
+
 //Vérification du formulaire 
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     http_response_code(405);
@@ -8,10 +9,10 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST") {
 }
     $pseudo = trim($_POST["pseudo"] ?? '');
     $prenom = trim($_POST["prenom"] ?? '');
-    $nom = trim($_POST["nom_famille"] ?? '');
+    $nom = trim($_POST["nom"] ?? '');
     $email = trim($_POST["email"] ?? '');
-    $sujet = trim($_POST["sujet"] ?? '');
-    $titre = trim($_POST["titre"] ?? '');
+    $sujet = trim($_POST["message_sujet"] ?? '');
+    $titre = trim($_POST["message_titre"] ?? '');
     $message = trim($_POST["message"] ??  '');
     $date_envoi = date('Y-m-d H:i:s');
     
@@ -33,13 +34,13 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     }
 
  //Insertion en base de données
-    $sql = "INSERT INTO messages_contact (
+    $sql = "INSERT INTO contacts (
             pseudo,
             prenom,
             nom, 
             email, 
-            sujet_message, 
-            titre_message,
+            message_sujet, 
+            message_titre,
             message, 
             date_envoi
         )
@@ -49,8 +50,8 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST") {
             :prenom,
             :nom, 
             :email, 
-            :sujet_message,
-            :titre_message,
+            :message_sujet,
+            :message_titre,
             :message,
             :date_envoi
         )";
@@ -62,19 +63,19 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST") {
             ':prenom' => $prenom,
             ':nom' => $nom,
             ':email' => $email,
-            ':sujet_message' => $sujet,
-            ':titre_message' => $titre,
+            ':message_sujet' => $sujet,
+            ':message_titre' => $titre,
             ':message' => $message,
             ':date_envoi' => $date_envoi
         ]);
 
-        echo "Message envoyé avec succès.";
+// Envoi du mail de contact
+        require_once __DIR__ . '/email_contact.php';
+        
+        header("Location: index.php?envoi=success");
+exit;
 
     } catch (PDOException $e) {
-        error_log("Erreur PDO : " . $e->getMessage());
- 
-        echo "Une erreur est survenue lors de l'envoi du message.";
+    echo "Erreur PDO : " . htmlspecialchars($e->getMessage());
 }
-
-
 
