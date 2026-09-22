@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!doctype html>
 <html lang="fr">
   <head>
@@ -10,8 +14,9 @@
     />
     <!-- liaison avec la feuille de style externe de CSS -->
     <link rel="stylesheet" href="css/styles.css"/>
-    <link rel="stylesheet" href="css/menu_burger.css"/>
-    <link rel="stylesheet" href="css/details_menus.css"/>
+    <link rel="stylesheet" href="css/menu_burger.css?v=5"/>
+    <link rel="stylesheet" href="css/details_menus.css?v=2"/>
+    <link rel="stylesheet" href="css/footer.css"/>
             <!-- Titre de la Page -->
     <title>Vite et Gourmand - Détails des menus classiques</title>
   </head>
@@ -30,72 +35,73 @@
     </header>    
     <main>
         <section class="details_menus">
-              <h2> Ce mois-ci : Menu "Le Jardin de José" </h2>
-              <h3>Galerie photos</h3>
+                  <h2> le menu "Le Jardin de José" </h2>
+            <h3>Galerie - photos</h3>
     <p>Cliquez sur chaque photo pour lire son commentaire.</p>
     <div class="galerie">
-      <figure>
-        <img src="images/charentes/menu_charentais.png" alt="Présentation du menu charentais de Vite & Gourmand comprenant au choix des huîtres de Marennes-Oléron ou des grattons charentais en entrée, une mouclade charentaise en plat principal, puis une galette charentaise ou un millas charentais en dessert">
-        <figcaption>Découvrez les spécialités des Charentes réunies dans un menu complet proposé par Vite & Gourmand : Régalez-vous avec les Charentes dans votre assiette.</figcaption>
-      </figure>
-      <figure>
-        <img src="images/charentes/huitres_marennes_oleron.png" alt="Plateau d'une douzaine d'huîtres de Marennes-Oléron présenté avec des quartiers de citron">
-        <figcaption>Une douzaine d'huîtres de Marennes-Oléron : les huîtres charentaises par excellence ! </figcaption>
-      </figure>
-       <figure>
-        <img src="images/charentes/gratton_charentais.png" alt="Assiette de grattons charentais présentés pour la dégustation">
-        <figcaption>Les grattons charentais, une spécialité régionale à base de porc proposée en entrée.</figcaption>
-      </figure>
-      <figure>
-        <img src="images/charentes/mouclade.png" alt="La Mouclade charentaise, préparée avec des moules dans une sauce crémeuse safranée">
-        <figcaption>Pour savourer les moules des côtes charentaises, laissez-vous tenter par la mouclade, une recette traditionnelle.</figcaption>
-      </figure>
-      <figure>
-        <img src="images/charentes/galette_charentaise.png" alt="Une galette charentaise avec une part découpée">
-        <figcaption>Pour terminer votre voyage gourmand dans les Charentes, vous vous laisserez tenter par la galette charentaise, un dessert traditionnel de la région.</figcaption>
-      </figure>
-      <figure>
-        <img src="images/charentes/millas_charentais.png" alt="Part de millas charentais découpée dans un gâteau rond">
-        <figcaption>Une autre découverte pour terminer le repas ? Le millas charentais, gâteau à base de farine de maïs à la texture fondante.  </figcaption>
-      </figure>
-      </div>        
-         <p>Thème : Repas classique</p>
-         <h3>Liste des plats du menu : </h3>
-             <h4>Entrées </h4>
-                <ul>
-                    <li>Salade de fenouil, menthe et orange</li>
-                    <li>Gaspacho </li>
-                </ul>
-              <h4>Plat du Jour</h4>
-                <ul>
-                    <li>Poivrons farcis au Quinoa</li>
-                </ul>
-              <h4>Desserts (mode végane)</h4>
-                <ul>
-                    <li>Tarte au citron</li>
-                    <li>Muffins aux fruits </li>
-                </ul>
+    <figure>
+        <img src="images/jardin_de_jose/menu_jardin_de_josé.png" alt="Présentation du menu Le Jardin de José de Vite & Gourmand comprenant une salade de fenouil à la menthe et à l'orange ou un gaspacho en entrée, des poivrons farcis au quinoa en plat principal, puis une tarte au citron végane ou des muffins aux fruits végans en dessert">
+        <figcaption>Entrez dans Le Jardin de José, un menu entièrement végan proposé par Vite & Gourmand : des recettes fraîches, colorées et riches en saveurs.</figcaption>
+    </figure>
+    <figure>
+        <img src="images/jardin_de_jose/salade_fenouil_mentthe_orange.png" alt="Salade composée de fenouil émincé, de morceaux d'orange et de feuilles de menthe">
+        <figcaption>Eveillez vos papilles avec une salade fraîche et parfumée qui marie le fenouil, l’orange et la menthe.</figcaption>
+    </figure>
+    <figure>
+        <img src="images/jardin_de_jose/gaspacho.png" alt="Gaspacho rouge servi dans un bol et accompagné de légumes frais">
+        <figcaption>Pour une entrée pleine de fraîcheur, savourez un gaspacho coloré aux délicieuses saveurs estivales</figcaption>
+    </figure>
+    <figure>
+        <img src="images/jardin_de_jose/poivrons_farcis_au_quinoa.png" alt="Poivrons colorés garnis de quinoa et présentés dans une assiette">
+        <figcaption>Laissez-vous tenter par des poivrons généreusement farcis au quinoa, un plat végan aussi coloré que savoureux.</figcaption>
+    </figure>
+    <figure>
+        <img src="images/jardin_de_jose//tarte_citron_végane.png" alt="Tarte au citron végane présentée entière avec une part découpée" >
+        <figcaption>Terminez votre repas avec la fraîcheur acidulée d’une tarte au citron entièrement végane.</figcaption>
+    </figure>
+    <figure>
+        <img src="images/jardin_de_jose/muffins_aux_fruits_vegans.png" alt="Muffins végans aux fruits disposés dans une assiette" >
+        <figcaption>Vous préférez une douceur fruitée ? Découvrez nos muffins végans, moelleux et généreusement garnis de fruits</figcaption>
+    </figure>
+    </div>
+        <p>Thème : Repas classique</p>
+                <h3>Liste des plats du menu : </h3>
+                    <h4>Entrées </h4>
+                    <ul>
+                        <li>Salade de fenouil, menthe et orange</li>
+                        <li>Gaspacho</li>
+                    </ul>
+                    <h4>Plat du Jour</h4>
+                    <ul>
+                        <li>Poivrons farcis au Quinoa</li>
+                    </ul>
+                    <h4>Desserts (mode végane)</h4>
+                    <ul>
+                        <li>Tarte au citron</li>
+                        <li>Muffins aux fruits</li>
+                    </ul>  
               <p>Nombre minimal de personnes : 4</p>
-              <p>Prix pour le nombre minimal : 160 euros</p>
+              <p>Prix pour le nombre minimal : 180 euros</p>
               <p>Les allergènes :  </p>
                 <ul>
-                    <li>gluten (farine de blé) :  Pain perdu à la sauce caramel, Bûche citron au praliné.</li>
+                    <li>Gluten (farine de blé) : Tarte au citron, muffins aux fruits </li>
+                    <li>Soja : Poivrons farcis au quinoa (sauce fromagère), muffins aux fruits</li>
+                    <li>Fruits à coque : Poivrons farcis au quinoa (noix de cajou), tarte au citron (noisettes et pistaches)</li>
+                    <li>Moutarde : Poivrons farcis au quinoa</li>  
                 </ul>
               <p>Malgré toute notre vigilance, des traces d'autres allergènes peuvent être présentes en raison des conditions de préparation. Pour toute allergie alimentaire, n'hésitez pas à nous contacter avant de passer votre commande.</p>
-              <p>Conditions particulières : </p>
-              <p>Régime : Végane</p>
+              <p>Conditions particulières : Aucune </p>
+              <p>Régime : Vegan</p>
               <p>Stock disponible : dans la mesure du possible, les plats sont cuisinés à la demande</p>
           <?php if (isset($_SESSION['id_utilisateur'])): ?>
-              <a href="formulaire_commande.php?menu=menu_jardin_de_jose" class="bouton_commande">COMMANDE</a>
+              <a href="formulaire_commande.php?menu=menu_jardin_de_jose" class="bouton_commande">COMMANDER</a>
           <?php else: ?>
               <a href="formulaire_connexion_utilisateur.php" class="bouton_commande">SE CONNECTER POUR COMMANDER</a>
           <?php endif; ?> 
         </section>
-     </section>
-      </main>
-       <?php include "footer.php"; ?>  
+    </main>
+     <?php include "footer_avec.php"; ?>
     <!-- liaison avec la page externe de Javascript -->
     <script src="javascript/menu_burger.js"></script> 
-    <script src="javascript/galerie.photos.js"></script> 
   </body>
 </html>

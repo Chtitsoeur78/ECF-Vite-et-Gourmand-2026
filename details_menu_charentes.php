@@ -1,6 +1,7 @@
 <?php
 session_start();
 ?>
+
 <!doctype html>
 <html lang="fr">
   <head>
@@ -13,7 +14,7 @@ session_start();
     />
     <!-- liaison avec la feuille de style externe de CSS -->
     <link rel="stylesheet" href="css/styles.css"/>
-    <link rel="stylesheet" href="css/menu_burger.css"/>
+    <link rel="stylesheet" href="css/menu_burger.css?v=5"/>
     <link rel="stylesheet" href="css/details_menus.css"/>
     <link rel="stylesheet" href="css/footer.css"/>
     
@@ -27,7 +28,7 @@ session_start();
             <?php include "menu_burger.php"; ?>
         </section>
         <section class="centre">
-            <h1>Détails du menu Sud-Ouest</h1>
+            <h1>Détails - Menu Sud-Ouest</h1>
         </section>
         <section class="logo"> 
             <img src="images/logo1.png" alt="Logo de Vite et Gourmand, la plate-forme pour manger vite et bien" >
@@ -44,23 +45,23 @@ session_start();
         <figcaption>Découvrez les spécialités des Charentes réunies dans un menu complet proposé par Vite & Gourmand : Régalez-vous avec les Charentes dans votre assiette.</figcaption>
     </figure>
     <figure>
-        <img src="images/charentes/huitres_marennes_oleron.png" alt="Plateau d'une douzaine d'huîtres de Marennes-Oléron présenté avec des quartiers de citron">
+        <img src="images/charentes//huitres_marennes_oleron.png" alt="Plateau d'une douzaine d'huîtres de Marennes-Oléron présenté avec des quartiers de citron">
         <figcaption>Une douzaine d'huîtres de Marennes-Oléron : les huîtres charentaises par excellence ! </figcaption>
     </figure>
     <figure>
-        <img src="images/charentes/gratton_charentais.png" alt="Assiette de grattons charentais présentés pour la dégustation">
+        <img src="images/charentes/grattons_charentais.png" alt="Assiette de grattons charentais présentés pour la dégustation">
         <figcaption>Les grattons charentais, une spécialité régionale à base de porc proposée en entrée.</figcaption>
     </figure>
     <figure>
-        <img src="images/charentes/mouclade.png" alt="La Mouclade charentaise, préparée avec des moules dans une sauce crémeuse safranée">
+        <img src="images/charentes/mouclade_charentaise.png" alt="La Mouclade charentaise, préparée avec des moules dans une sauce crémeuse safranée">
         <figcaption>Pour savourer les moules des côtes charentaises, laissez-vous tenter par la mouclade, une recette traditionnelle.</figcaption>
     </figure>
     <figure>
-        <img src="images/charentes/galette_charentaise.png" alt="Une galette charentaise avec une part découpée">
+        <img src="images/charentes/galette_charentaise.png?v=2" alt="Une galette charentaise avec une part découpée">
         <figcaption>Pour terminer votre voyage gourmand dans les Charentes, vous vous laisserez tenter par la galette charentaise, un dessert traditionnel de la région.</figcaption>
     </figure>
     <figure>
-        <img src="images/charentes/millas_charentais.png" alt="Part de millas charentais découpée dans un gâteau rond">
+        <img src="images/charentes/millas_charentais.png?v2" alt="Part de millas charentais découpée dans un gâteau rond">
         <figcaption>Une autre découverte pour terminer le repas ? Le millas charentais, gâteau à base de farine de maïs à la texture fondante.  </figcaption>
     </figure>
     </div> 
@@ -84,10 +85,10 @@ session_start();
           <p>Prix pour le nombre minimal : 200 euros</p>
           <p>Les allergènes :</p>
                 <ul>
-                    <li>mollusques : Huîtres de Marenne-Oléron, Mouclade (moules)</li>
-                    <li>gluten (farine de blé) : Galette charentaise, millas charentais</li>
-                    <li>oeufs : Galette charentaise, millas charentais</li>
-                    <li>lait : Galette charentaise, millas charentais</li>
+                    <li>Gluten (farine de blé) : Galette charentaise, millas charentais</li>
+                    <li>Mollusques : Huîtres de Marenne-Oléron, Mouclade (moules)</li>
+                    <li>Lait : Galette charentaise, millas charentais</li>
+                    <li>Oeufs : Galette charentaise, millas charentais</li> 
                 </ul>
             <p>Malgré toute notre vigilance, des traces d'autres allergènes peuvent être présentes en raison des conditions de préparation. Pour toute allergie alimentaire, n'hésitez pas à nous contacter avant de passer votre commande.</p>
             <p>Conditions particulières : Le faitout dans lequel est livrée la mouclade doit être rendu</p>
@@ -100,7 +101,7 @@ session_start();
               <?php endif; ?>
         </section>
       </main>
-       <?php include "footer.php"; ?>  
+       <?php include "footer_avec.php"; ?>  
     <!-- liaison avec la page externe de Javascript -->
     <script src="javascript/menu_burger.js"></script> 
     <script src="javascript/galerie.photos.js"></script> 

@@ -45,14 +45,41 @@
   font-size: 0.9rem;
 }
 
+/* Masque les menus écartés par les filtres JavaScript */
+.menu_contenu[hidden] {
+  display: none;
+}
+
 h2 {
   overflow-wrap: break-word;
   line-height: 1.1;
 }
 
+.filtres_menus {
+  width: 90%;
+  margin: 40px auto;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+
+  background-color: #dceaff;
+  border: 2px solid #064e38;
+  border-radius: 30px;
+  box-sizing: border-box;
+}
+
 @media screen and (min-width: 768px) {
   .menu_contenu {
     margin: 2rem 5rem;
+  }
+
+  .filtres_menus {
+    display: flex;
+    flex-direction: row;
   }
 
   h1 {
