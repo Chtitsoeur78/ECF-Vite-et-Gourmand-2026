@@ -6,6 +6,7 @@ try {
 
 // Destinataire
 /** @var string $email */
+/** @var string $prenom */
 $mail->addAddress($email);
 
 // Objet
@@ -18,6 +19,7 @@ $mail->Body = '
 <p>Bonjour ' . htmlspecialchars($prenom) . ',</p>
 
 <p>Nous avons le plaisir de vous informer que votre commande a  bien été enregistrée.</p>
+<p>Retrouvez-la dès maintenant dans votre espace utilisateur Vite et Gourmand.</p>
 
 <p>Nous vous remercions de votre confiance.</p>
 
@@ -31,7 +33,7 @@ $mail->AltBody =
 Bonjour $prenom,
 
 Nous avons le plaisir de vous informer que votre commande a  bien été enregistrée.
-
+Retrouvez-la dès maintenant dans votre espace utilisateur Vite et Gourmand.
 Nous vous remercions de votre confiance.
 
 A très bientôt ! 
