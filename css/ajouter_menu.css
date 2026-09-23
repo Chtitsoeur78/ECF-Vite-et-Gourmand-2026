@@ -1,0 +1,13 @@
+.ajout_menu {
+  width: min(90%, 750px);
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #c8ff95;
+  border-radius: 1.5rem;
+}
+
+.ajout_menu h1 {
+  text-align: center;
+  color: #064e38;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+}

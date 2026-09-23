@@ -127,4 +127,8 @@
   h1 {
     white-space: nowrap;
   }
+
+  .details_menus {
+    font-size: 1.5rem;
+  }
 }
