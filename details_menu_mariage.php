@@ -102,7 +102,7 @@ session_start();
           <?php endif; ?>
       </section>
       </main>  
-       <?php include "footer_avec.php"; ?> 
+       <?php include "footer.php"; ?> 
   <!-- liaison avec la page externe de Javascript -->
     <script src="javascript/menu_burger.js"></script> 
   </body>
