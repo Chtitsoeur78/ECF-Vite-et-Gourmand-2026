@@ -9,8 +9,8 @@ if (isset($_SESSION['id_role'])) {
         header('Location: espace_employe.php');
         exit();
     }
-}
-?>
+    }?>
+
 <!doctype html>
 <html lang="fr">
   <head>
@@ -31,7 +31,7 @@ if (isset($_SESSION['id_role'])) {
           <?php include "menu_burger.php"; ?>
       </section>
       <section>    
-          <h1>Connexion - Administration</h1>
+          <h1>Connexion Administration</h1>
       </section> 
       <section class="logo">
         <img src="images/logo1.png" alt="Logo de Vite et Gourmand, la plate-forme pour manger vite et bien"/>
@@ -39,24 +39,23 @@ if (isset($_SESSION['id_role'])) {
     </header> 
     <main>
         <form action="traitement_connexion_administration.php" method="post">
-        <form action="traitement_connexion_administration.php" method="post" autocomplete="off">
         <fieldset>
             <legend class="legend">Direction votre Espace - Administration</legend>
         <p>
             <label for="email">E-MAIL * : </label>
-            <input type="email" required id="email" name="email" autocomplete="off" placeholder="xx@yy.zz">
+            <input type="email" required id="email" name="email" placeholder="xx@yy.zz">
         </p>
         <p>
             <label for="mot_de_passe">MOT DE PASSE * :</label>
-            <input type="password" required id="mot_de_passe" name="mot_de_passe" minlength="10" maxlength="80" autocomplete="off" placeholder="xxxxxxxxxxxxx">
+            <input type="password" required id="mot_de_passe" name="mot_de_passe" minlength="10" maxlength="80" placeholder="xxxxxxxxxxxxx">
         </p>
         <p>
-            <button type="submit" name="OK" value="Envoyer"> Connectez vous</button>    
+            <button type="submit" name="OK" value="Envoyer"> Connectez - vous</button>    
         </p>
-       <p>
-            <button type="button" onclick="window.location.href='motdepasse_oublie_administration.php'"> Mot de passe oublié ? </button>
+        <p>
+            <p><a href="motdepasse_oublie_administration.php">Mot de passe oublié ?</a></p>
         </p>
-       <fieldset>
+        </fieldset>
         </form>
         </main>
 <!-- liaison avec la page externe de Javascript -->

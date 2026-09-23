@@ -14,11 +14,7 @@ $employe = $requete->fetch(PDO::FETCH_ASSOC);
 
     if ($employe && password_verify($mot_de_passe, $employe['mot_de_passe'])) {
 
-        
-        unset($_SESSION['id_utilisateur']);
-        unset($_SESSION['email']);
-
-        $_SESSION['id_salarie']=$employe['id_salarie'];
+        $_SESSION['id_employe'] = $employe['id_salarie'];
         $_SESSION['id_role'] = $employe['id_role'];
         $_SESSION['prenom'] = $employe['prenom'];
 
