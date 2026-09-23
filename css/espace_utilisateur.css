@@ -1,14 +1,32 @@
 .titre_header {
-  flex: 1;
   min-width: 0;
+  justify-self: center;
+  text-align: center;
+  margin: 0;
+  margin-bottom: 0.5rem;
+  line-height: 1.1;
+ }
+
+.header_conteneur {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+}
+
+.header_conteneur > section:first-child {
+  justify-self: start;
+}
+.logo {
+  justify-self: end;
 }
 
 .espace_utilisateur {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0.5rem;
   min-width: 0;
-  flex: 1;
+  margin-inline: 15px;
+  margin-top: 0;
 }
 
 .donnees_personnelles,
@@ -18,9 +36,9 @@
   border: 0.1rem solid #064e38;
   border-radius: 1.5rem;
   padding: 1rem;
-  margin: 0;
+  padding-top: 0.3rem;
+  margin: 0.5rem;
   font-size: 0.9rem;
-  width: 100%;
   box-sizing: border-box;
 }
 
@@ -31,12 +49,19 @@
 
 .commandes_en_cours table,
 .commandes_terminees table {
-  min-width: 50rem;
+  min-width: 800px;
+  width: 100%;
+  white-space: nowrap;
   border-collapse: collapse;
 }
 
-h1 {
-  margin: 0;
+.commandes_en_cours th,
+.commandes_en_cours td,
+.commandes_terminees th,
+.commandes_terminees td {
+  border: 0.1rem solid #064e38;
+  padding: 0.5rem;
+  text-align: center;
 }
 
 h2 {
@@ -45,28 +70,57 @@ h2 {
   line-height: 1.1;
 }
 
+.commandes_en_cours h2,
+.commandes_terminees h2 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  padding: 0;
+}
+
 .bouton_modifier {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: block;
+  width: fit-content;
+  text-decoration: none;
+  min-height: auto;
+  font-size: 1rem;
+  padding: 0.5rem 0.8rem;
+  min-width: 0;
+  max-width: 16rem;
   background-color: #44ca68;
   border: 0.1rem solid #064e38;
-  border-radius: 1.5rem;
   color: #ffffff;
+  border-radius: 1.5rem;
   font-weight: bold;
-  width: fit-content;
-  max-width: 100%;
-  padding: 0.8rem 1.2rem;
-  margin: 1rem auto 0; 
-  font-size: 0.9rem;
-  line-height: 1.2;
-  text-align: center;
   word-break: normal;
   overflow-wrap: break-word;
-  cursor: pointer;
   text-transform: uppercase;
-  text-decoration: none;
+  cursor: pointer;
+  text-align: center;
+  margin: 0 auto;
 }
+
 .bouton_modifier:hover {
   background-color: #00b050; /* un peu plus foncé au survol */
+}
+
+.bouton_avis {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 5px 10px;
+  color: #ffffff;
+  background-color: #44ca68;
+  border: 1px solid #064e38;
+  border-radius: 15px;
+  text-decoration: none;
+}
+
+.bouton_avis:hover {
+  background-color: #00b050;
+}
+
+.actions_commande {
+  text-align: center;
+  vertical-align: middle;
 }

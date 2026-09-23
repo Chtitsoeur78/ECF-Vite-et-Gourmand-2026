@@ -190,19 +190,18 @@ if ($adresse_facturation_identique == 1) {
             ':date_inscription' => $date_inscription
         ]);
         
-    // récupération de l'id utilisateur créé
+// récupération de l'id utilisateur créé
         $id_utilisateur = $pdo->lastInsertId();
 
-        // stockage en session
+// stockage en session
         $_SESSION['id_utilisateur'] = $id_utilisateur;
-        $_SESSION['prenom'] = $prenom;
 
-    // Envoi du mail de confirmation d'inscription
-    require_once __DIR__ . '/email_confirmation_inscription.php';
-    
-    header("Location: espace_utilisateur.php");
-    exit;
 
+// Envoi du mail de confirmation
+        require_once __DIR__ . '/email_confirmation_inscription.php';
+        
+        header("Location: espace_utilisateur.php?inscription=success");
+exit; 
       } catch (PDOException $e) {
 
     // Enregistre l'erreur complète dans les logs
