@@ -1,6 +1,16 @@
 <?php
+
 session_start();
-?>
+
+require_once __DIR__ . '/connexion_mongodb.php';
+
+$avisValides = $collectionAvis->find(
+    ['statut_avis' => 'valide'],
+    [
+        'sort' => ['date_avis' => -1],
+        'limit' => 3
+    ]
+); ?>
 <!DOCTYPE html> 
 <html lang="fr"> 
 <head> 
@@ -36,7 +46,7 @@ session_start();
        <?php if (isset($_SESSION['id_utilisateur'])): ?>
         <div class="zone_connexion">
             <p>
-        Bonjour <?= htmlspecialchars($_SESSION["prenom"]) ?> 👋
+        Bonjour <?= htmlspecialchars($_SESSION["pseudo"]) ?> 👋
             </p>
         <a href="deconnexion.php" class="deconnexion">Se déconnecter</a>
         </div>
@@ -92,35 +102,59 @@ session_start();
                 </section>
             </div>
         </section>
-         <!-- Les avis des clients --> 
+ <!-- Avis des clients -->
         <section class="avis_clients">
             <h2 class="titre">Nos clients donnent leur avis ... </h2>
             <div class="avis_clients_conteneur">
-                <article class="avis_clients_contenu">
-                    <p><strong>Pseudo : </strong> Chtitsoeur</p> 
-                    <p><strong>Note : </strong>
-                    <span aria-label="5 étoiles sur 5" role="img">★★★★★</span></p>
-                    <p><strong>Commentaire : </strong> Super appli ! Très pratique pour un merveilleux repas.</p> 
-                    <p><strong>Publié le : </strong><time datetime="2025-11-30" aria-label="30 novembre 2025">30/11/2025</time></p>
-                </article> 
-                <article class="avis_clients_contenu">
-                    <p><strong>Pseudo : </strong>Roro</p> 
-                    <p><strong>Note : </strong>
-                    <span aria-label="5 étoiles sur 5" role="img">★★★★★</span></p>
-                    <p><strong>Commentaire : </strong> Excellent repas - Quantité parfaite - A recommander !</p> 
-                    <p><strong>Publié le : </strong><time datetime="2025-11-30" aria-label="30 novembre 2025">30/11/2025</time></p>
-                </article>
-               <article class="avis_clients_contenu">
-                    <p><strong>Pseudo : </strong>Olivier</p> 
-                    <p><strong>Note : </strong>
-                    <span aria-label="5 étoiles sur 5" role="img">★★★★★</span></p>
-                    <p><strong>Commentaire : </strong> Excellent repas - Quantité parfaite </p> 
-                    <p><strong>Publié le : </strong><time datetime="2025-12-09" aria-label="9 décembre 2025">09/12/2025</time></p>
-                </article>
+                <?php foreach ($avisValides as $avis): ?>
+            <?php
+        $pseudo = htmlspecialchars((string) ($avis['pseudo'] ?? 'Client'));
+        $message = htmlspecialchars((string) ($avis['commentaire'] ?? ''));
+        
+        $note = (int) ($avis['note'] ?? 0);
+        $note = max(0, min(5, $note));
+
+         $dateAvis = (string) ($avis['date_avis'] ?? '');
+         $dateAffichee = '';
+
+        if ($dateAvis !== '') {
+             $date = DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $dateAvis);
+
+        if ($date !== false) {
+            $dateAffichee = $date->format('d/m/Y');
+        }
+    } ?>
+    <article class="avis_clients_contenu">
+
+        <p>
+            <strong>Pseudo : </strong><?= $pseudo ?>
+        </p>
+        <p>
+            <strong>Note : </strong>
+            <span
+                aria-label="<?= $note ?> étoiles sur 5"
+                role="img">
+                <?= str_repeat('★', $note) ?>
+                <?= str_repeat('☆', 5 - $note) ?>
+            </span>
+        </p>
+        <p>
+            <strong>Commentaire : </strong><?= $message ?>            
+        </p>
+        <?php if ($dateAffichee !== ''): ?>
+            <p>
+                <strong>Publié le : </strong>
+                <time datetime="<?= htmlspecialchars($dateAvis) ?>">
+                    <?= $dateAffichee ?>
+                </time>
+            </p>
+        <?php endif; ?>
+    </article>
+    <?php endforeach; ?>       
             </div>
         </section>
         </main> 
-       <?php include "footer.php"; ?>  
+       <?php include "footer_sans.php"; ?>  
     </body>
 </html>
 
