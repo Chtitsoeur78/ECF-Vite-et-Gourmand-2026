@@ -1,3 +1,4 @@
 configuration_email.php
 configuration_bdd.php
 configuration_mongodb_atlas.php
+vendor/
