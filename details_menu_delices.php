@@ -31,9 +31,13 @@
     </header>    
     <main>
         <section class="details_menus">
-              <h2> le menu "Délices" </h2>
-              <h3>Galerie - photos</h3>
+              <h2>Ce mois-ci : Menu "Délices" </h2>
+              <h3>Galerie photos</h3>
     <div class="galerie">
+     <figure>
+        <img src="images/charentes/menu_charentais.png" alt="Présentation du menu charentais de Vite & Gourmand comprenant au choix des huîtres de Marennes-Oléron ou des grattons charentais en entrée, une mouclade charentaise en plat principal, puis une galette charentaise ou un millas charentais en dessert">
+        <figcaption>Découvrez les spécialités des Charentes réunies dans un menu complet proposé par Vite & Gourmand : Régalez-vous avec les Charentes dans votre assiette.</figcaption>
+    </figure>
     <figure>
         <img src="images/delices/salade_nicoise.jpg" alt="Assiette de salade nicoise ">
         <figcaption>L'autenthique salade niçoise : Une des deux entrées du menu Délices chez Vite & Gourmand</figcaption>
@@ -56,25 +60,35 @@
     </figure>
     </div>
         <p>Thème : Repas classique</p>
-              <h3>Liste des plats du menu : </h3>
-              <h4>Entrées </h4>
-                <ul>
-                <li>+ Salade niçoise</li>
-                <li>+ Quiche lorraine</li>
-                </ul>
-              <h4>Plat du Jour</h4>
-                <ul>
-                <li>+ Boeuf bourguignon</li>
-                </ul>
-              <h4>Desserts</h4>
-                <ul>
-                <li>+ Ile flottante</li>
-                <li>+ Clafoutis aux cerises</li>
-                </ul>
+        <h3>Liste des plats du menu : </h3>
+            <h4>Entrées </h4>
+              <ul>
+                  <li>+ Salade niçoise</li>
+                  <li>+ Quiche lorraine</li>
+              </ul>
+            <h4>Plat du Jour</h4>
+              <ul>
+                  <li>+ Boeuf bourguignon</li>
+              </ul>
+            <h4>Desserts</h4>
+              <ul>
+                  <li>+ Ile flottante</li>
+                  <li>+ Clafoutis aux cerises</li>
+              </ul>
         <p>Nombre minimal de personnes : 4</p>
         <p>Prix pour le nombre minimal : 160 euros</p>
-        <p>Les allergènes :  </p>
-        <p>Conditions particulières : </p>
+        <p>Les allergènes :</p>
+              <ul>
+                    <li>poisson : Salade niçoise (thon, anchois)</li>
+                    <li>gluten (farine de blé) : Quiche lorraine, clafoutis ayx cerises</li>
+                    <li>oeufs : Salade niçoise, quiche lorraine, île flottante, clafoutis aux cerises</li>
+                    <li>lait : Quiche lorraine, île flottante, clafoutis aux cerises </li>
+                    <li>moutarde : Salade niçoise (dans vinaigrette)</li>
+                    <li>céleri : Boeuf bourguignon (dans le bouquet garni)</li>
+                    <li>suffites : Boeuf bourguignon (dans le vin servant à la cuisson)</li>
+                    <li>fruits à coque : Île flottante (amandes)</li>
+              </ul> 
+        <p>Malgré toute notre vigilance, des traces d'autres allergènes peuvent être présentes en raison des conditions de préparation. Pour toute allergie alimentaire, n'hésitez pas à nous contacter avant de passer votre commande.</p>        <p>Conditions particulières : </p>
         <p>Régime : Classique</p>
         <p>Stock disponible : dans la mesure du possible, les plats sont cuisinés à la demande</p>
           <?php if (isset($_SESSION['id_utilisateur'])): ?>

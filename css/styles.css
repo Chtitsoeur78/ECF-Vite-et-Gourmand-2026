@@ -90,17 +90,7 @@ h4 {
 
 .logo img {
   width: auto;
-  height: clamp(75px, 10vw, 160px);
-}
-
-@media (min-width: 768px) {
-  .logo img {
-    height: clamp(110px, 12vw, 160px);
-  }
-}
-
-@media (min-width: 1024px) {
-  .logo img {
-    height: clamp(140px, 12vw, 160px);
-  }
+  height: clamp(70px, 10vw, 200px);
+  max-height: 100%;
+  object-fit: contain;
 }

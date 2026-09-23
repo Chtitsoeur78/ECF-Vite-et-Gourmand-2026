@@ -61,3 +61,19 @@ td {
   font-size: 0.9rem;
   text-align: center;
 }
+
+.header_conteneur > .zone_connexion {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.zone_connexion p {
+  margin: 0;
+}
+
+.bouton_deconnexion {
+  padding: 0.6rem 1rem;
+  font-weight: bold;
+}

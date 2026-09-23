@@ -10,8 +10,9 @@
     <link rel="stylesheet" href="css/styles.css"/>
     <link rel="stylesheet" href="css/menu_burger.css"/>
     <link rel="stylesheet" href="css/details_menus.css"/>
-             <!-- Titre de la Page -->
-    <title>Vite et Gourmand - Détails des menus Evenement : Menu Fiesta</title>
+    <link rel="stylesheet" href="css/footer.css"/>
+     <!-- Titre de la Page -->
+  <title>Vite et Gourmand - Détails des menus Évenement : Menu Fiesta</title>
   </head>
   <body>
     <!-- header : l'en-tête de la page d'accueil --> 
@@ -20,7 +21,7 @@
                 <?php include "menu_burger.php"; ?>
         </section>
         <section class="centre">
-            <h1>Détails des menus "Evénement"</h1>
+            <h1>Détails des menus "Événement"</h1>
         </section>
         <section class="logo"> 
             <img src="images/logo1.png" alt="Logo de Vite et Gourmand, la plate-forme pour manger vite et bien" >
@@ -28,63 +29,77 @@
     </header>    
     <main>
         <section class="details_menu">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-              <h2> le menu "Fiesta" </h2>
-              <p>galerie de photos</p>
-              <p>Thème : Repas Evénement</p>
-              <p>La liste des plats du menu : 
-                <p>Entrées </p>
-                <div>+ Toast au fromage de chèvre et à la poire</div>
-                <div>+ Roulés de jambon au fromage et aux herbes </div>
-                <p>Plat du Jour</p>
-                <div>+ Saumon à la sauce au miel </div>
-                <p>Desserts</p>
-                <div>+ Riz soufflé aux smarties</div>
-                <div>+ Dôme au chocolat praliné</div>
-              </p>
-              <p>Nombre minimal de personnes : 4</p>
-              <p>Prix pour le nombre minimal : 240 euros</p>
-              <p>Les allergènes :  </p>
-              <p>Conditions particulières : </p>
-              <p>Régime : Végétarien</p>
-              <p>Stock disponible : dans la mesure du possible, les plats sont cuisinés à la demande</p>
-          <?php if (isset($_SESSION['id_utilisateur'])): ?>
-              <a href="formulaire_commande.php?menu=menu_fiesta" class="bouton_commande">COMMANDE</a>
-          <?php else: ?>
-              <a href="formulaire_connexion_utilisateur.php" class="bouton_commande">SE CONNECTER POUR COMMANDER</a>
+              <h2>Ce mois-ci :  Menu Fiesta</h2>
+              <h3>Galerie photos</h3>
+    <p>Cliquez sur chaque photo pour lire son commentaire.</p>
+    <div class="galerie">
+    <figure>
+        <img src="images/charentes/menu_charentais.png" alt="Présentation du menu charentais de Vite & Gourmand comprenant au choix des huîtres de Marennes-Oléron ou des grattons charentais en entrée, une mouclade charentaise en plat principal, puis une galette charentaise ou un millas charentais en dessert">
+        <figcaption>Découvrez les spécialités des Charentes réunies dans un menu complet proposé par Vite & Gourmand : Régalez-vous avec les Charentes dans votre assiette.</figcaption>
+    </figure>
+    <figure>
+        <img src="images/charentes/huitres_marennes_oleron.png" alt="Plateau d'une douzaine d'huîtres de Marennes-Oléron présenté avec des quartiers de citron">
+        <figcaption>Une douzaine d'huîtres de Marennes-Oléron : les huîtres charentaises par excellence ! </figcaption>
+    </figure>
+    <figure>
+        <img src="images/charentes/gratton_charentais.png" alt="Assiette de grattons charentais présentés pour la dégustation">
+        <figcaption>Les grattons charentais, une spécialité régionale à base de porc proposée en entrée.</figcaption>
+    </figure>
+    <figure>
+        <img src="images/charentes/mouclade.png" alt="La Mouclade charentaise, préparée avec des moules dans une sauce crémeuse safranée">
+        <figcaption>Pour savourer les moules des côtes charentaises, laissez-vous tenter par la mouclade, une recette traditionnelle.</figcaption>
+    </figure>
+    <figure>
+        <img src="images/charentes/galette_charentaise.png" alt="Une galette charentaise avec une part découpée">
+        <figcaption>Pour terminer votre voyage gourmand dans les Charentes, vous vous laisserez tenter par la galette charentaise, un dessert traditionnel de la région.</figcaption>
+    </figure>
+    <figure>
+        <img src="images/charentes/millas_charentais.png" alt="Part de millas charentais découpée dans un gâteau rond">
+        <figcaption>Une autre découverte pour terminer le repas ? Le millas charentais, gâteau à base de farine de maïs à la texture fondante.  </figcaption>
+    </figure>
+    </div>        
+            <p>Thème : Repas Événement</p>
+            <h3>Liste des plats du menu : </h3>
+              <h4>Entrées </h4>
+                <ul>
+                    <li>Toast au fromage de chèvre et à la poire</li>
+                    <li>Roulés de jambon au fromage et aux herbes </li>
+                </ul>  
+              <h4>Plat du Jour</h4>
+                <ul>
+                    <li>Saumon à la sauce au miel </li>
+                </ul>
+              <h4>Desserts</h4>
+                <ul>
+                    <li>Riz soufflé aux smarties</li>
+                    <li>Dôme au chocolat praliné</li>
+                </ul>
+            <p>Nombre minimal de personnes : 4</p>
+            <p>Prix pour le nombre minimal : 240 euros</p>
+            <p>Les allergènes :</p>
+                <ul>
+                    <li>gluten (farine de blé) : Toasts au formage de chèvre et à la poire (pain), Dôme au chocolat praliné</li>
+                    <li>oeufs : Dôme au chocolat praliné</li>
+                    <li>lait : Toasts au formage de chèvre et à la poire (fromage de chèvre), Roulés de jambon au fromage et aux herbes (fromage), Riz soufflé aux Smarties (chocolat au lait dans les Smarties), Dôme au chocolat praliné.</li>
+                    <li>poisson : saumon à la sauce au miel (saumon)</li>
+                    <li>moutarde : saumon à la sauce au miel (sauce faite avec de la moutarde)</li>
+                    <li>fruits à coque : Dôme au chocolat praliné (praliné : noisettes et/ou amandes)</li>             
+                </ul>
+            <p>Malgré toute notre vigilance, des traces d'autres allergènes peuvent être présentes en raison des conditions de préparation. Pour toute allergie alimentaire, n'hésitez pas à nous contacter avant de passer votre commande.</p>
+            <p>Conditions particulières : </p>
+            <p>Régime : Classique</p>
+            <p>Stock disponible : dans la mesure du possible, les plats sont cuisinés à la demande</p>
+             <?php if (isset($_SESSION['id_utilisateur'])): ?>
+             <a href="formulaire_commande.php?menu=menu_fiesta" class="bouton_commande">COMMANDE</a>
+             <?php else: ?>
+             <a href="formulaire_connexion_utilisateur.php" class="bouton_commande">SE CONNECTER POUR COMMANDER</a>
           <?php endif; ?>
       </section>
-      </main>  
-  <!-- liaison avec la page externe de Javascript -->
+      </main>
+       <?php include "footer.php"; ?>  
+    <!-- liaison avec la page externe de Javascript -->
     <script src="javascript/menu_burger.js"></script> 
+    <script src="javascript/galerie.photos.js"></script> 
   </body>
-</html>
+</html> 
+

@@ -1,19 +1,89 @@
 <?php
+session_start();
+
 require_once 'connexion.php';
+require_once 'connexion_mongodb.php'; 
+
+$avis_en_attente = $collectionAvis->find(
+    [
+        "statut_avis" => "en_attente",
+        "id_commande" => ["\$exists" => true],
+        "id_utilisateur" => ["\$exists" => true]
+    ],
+    [
+        "sort" => ["date_avis" => 1]
+    ]
+);
+
+$avis_refuses = $collectionAvis->find(
+    [
+        "statut_avis" => "refuse",
+        "id_commande" => ['$exists' => true],
+        "id_utilisateur" => ['$exists' => true]
+    ],
+    [
+        "sort" => ["date_avis" => -1]
+    ]
+)->toArray();
+
+$requete_nom_client = $pdo->prepare("
+    SELECT nom
+    FROM utilisateurs
+    WHERE id_utilisateur = :id_utilisateur
+");
+
 $sql = "
 
-    SELECT 
+    SELECT
+        salaries.id_salarie,
+        salaries.civilite,
+        salaries.prenom, 
+        salaries.nom, 
+        role.libelle AS role_salarie,
+        salaries.email,
+        salaries.telephone, 
+        salaries.adresse, 
+        salaries.code_postal,
+        commune_gironde.commune_gironde AS ville, 
+        salaries.date_embauche, 
+        salaries.type_contrat, 
+        salaries.fonction, 
+        salaries.date_prise_fonction, 
+        salaries.date_fin_contrat,
+        salaries.date_creation_compte
+
+        FROM salaries
+
+    INNER JOIN role  
+        ON salaries.id_role = role.id_role    
+    INNER JOIN commune_gironde
+        ON salaries.id_commune = commune_gironde.id_commune
+    ";
+
+$stmt = $pdo->prepare($sql);
+$stmt->execute();
+$salaries = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+$sql = "
+
+   SELECT 
         commandes.id_commande,
         commandes.date_livraison,
+        horaires_livraison.tranche_horaire AS tranche_horaire,
         commune_gironde.commune_gironde AS ville_livraison,
         commandes.nom_menu,
-        commandes.nb_personnes,
+        commandes.nombre_personnes,
         commandes.prix_total,
+        commandes.id_statut_commande,
+        commandes.pret_materiel,
+        commandes.retour_materiel,
         statut_commande.libelle_statut AS statut_commande,
         utilisateurs.nom AS nom_client
     
         FROM commandes
-    
+   
+    INNER JOIN horaires_livraison
+        ON commandes.id_horaire_livraison = horaires_livraison.id_horaire_livraison
     INNER JOIN utilisateurs 
         ON commandes.id_utilisateur = utilisateurs.id_utilisateur
     INNER JOIN commune_gironde
@@ -21,7 +91,7 @@ $sql = "
     INNER JOIN statut_commande
         ON commandes.id_statut_commande = statut_commande.id_statut_commande
     
-    WHERE statut_commande.libelle_statut NOT IN ('terminee', 'annulee')
+    WHERE statut_commande.id_statut_commande NOT IN (7, 8)
     ORDER BY commandes.date_livraison ASC 
    ";
 
@@ -35,18 +105,18 @@ $sql_precision = "
         commandes.id_commande,
         commandes.date_livraison,
         commandes.nom_menu,
-        commandes.nb_personnes,
-        commandes.nb_entree1,
-        commandes.nb_entree2,
-        commandes.nb_dessert1,
-        commandes.nb_dessert2
+        commandes.nombre_personnes,
+        commandes.nombre_entree1,
+        commandes.nombre_entree2,
+        commandes.nombre_dessert1,
+        commandes.nombre_dessert2
         
         FROM commandes
 
         INNER JOIN statut_commande
         ON commandes.id_statut_commande = statut_commande.id_statut_commande
 
-        WHERE statut_commande.libelle_statut NOT IN ('terminee', 'annulee')
+        WHERE statut_commande.id_statut_commande NOT IN (7, 8)
         ORDER BY commandes.date_livraison ASC 
         ";
 
@@ -55,20 +125,44 @@ $stmt->execute();
 $precision_commandes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 $sql_menus = "
-    SELECT 
-        menus.id_menus,
-        menus.titre_menus,
+    SELECT
+        menus.id_menu,
+        menus.nom_menu,
         menus.nb_personnes_minimum,
         menus.prix_par_personne_euros,
-        menus.description,
-        plat.nom_plat AS nom_plat,
-        regime.libelle_regime AS nom_regime
+        menus.description_menu,
+        regime.libelle_regime AS nom_regime,
+        theme.libelle_theme,
+        GROUP_CONCAT(
+            plat.nom_plat
+            ORDER BY menus_plats.ordre_plat
+            SEPARATOR '|||'
+        ) AS noms_plats
+
     FROM menus
+
+    INNER JOIN menus_plats
+        ON menus.id_menu = menus_plats.id_menu
+
     INNER JOIN plat
-        ON menus.id_plat = plat.id_plat
+        ON menus_plats.id_plat = plat.id_plat
+
     INNER JOIN regime
         ON menus.id_regime = regime.id_regime
-    ";
+
+    INNER JOIN theme
+        ON menus.id_theme = theme.id_theme
+
+    GROUP BY
+        menus.id_menu,
+        menus.nom_menu,
+        menus.nb_personnes_minimum,
+        menus.prix_par_personne_euros,
+        menus.description_menu,
+        regime.libelle_regime,
+        theme.libelle_theme
+    ORDER BY menus.id_menu
+"; 
 $stmt = $pdo->prepare($sql_menus);
 $stmt->execute();
 $menus = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -86,6 +180,7 @@ $menus = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <!-- liaison avec la feuille de style externe de CSS -->
     <link rel="stylesheet" href="css/styles.css"/>
     <link rel="stylesheet" href="css/menu_burger.css"/>
+    <link rel="stylesheet" href="css/espace_employe.css">
     <link rel="stylesheet" href="css/espace_administrateur.css"/>
     <!-- Titre de la Page -->
     <title>Vite et Gourmand - Espace Administrateur</title>
@@ -102,97 +197,164 @@ $menus = $stmt->fetchAll(PDO::FETCH_ASSOC);
       <section class="logo">
         <img src="images/logo1.png" alt="Logo de Vite et Gourmand, la plate-forme pour manger vite et bien" >
       </section>
-         </header>
+        <div class="zone_connexion">
+            <p>
+        Bonjour <?= htmlspecialchars($_SESSION["prenom"]) ?> 👋
+            </p>
+        <a href="deconnexion.php" class="deconnexion">Se déconnecter</a>
+        </div>
+    </header>
         <?php if (isset($_SESSION['message_succes'])): ?> 
         <p class="message_succes"> <?= $_SESSION['message_succes']; ?> </p> 
         <?php unset($_SESSION['message_succes']); ?> <?php endif; ?>
     <main>
         <section class="espace_administrateur">
-         <section class="creation_compte">
+        <section class="creation_compte">
             <h2>Espace "Création des Comptes Employé"</h2>
         <p>
         <a href="formulaire_employe.php" class="bouton_employes">CRÉEZ VOS COMPTES "EMPLOYÉ"</a>
         </p>
         </section>
-       <section class="commandes_en_cours">     
-        <h2>Espace "Commandes en cours"</h2>
+        <section>
+            <h2>Espace "Les Employés de Vite et Gourmand"</h2>
+         <section class="employes">
+            <table border="1">
+            <thead>
+                <tr>
+                <th>ID Salarié</th>
+                <th>Prénom</th>
+                <th>Nom</th>
+                <th>Rôle</th>
+                <th>Email</th>
+                <th>Téléphone</th>
+                <th>Adresse</th>
+                <th>Code postal</th>
+                <th>Ville</th>
+                <th>Date d'embauche</th>
+                <th>Type de contrat</th>
+                <th>Fonction</th>
+                <th>Date de prise de fonction</th>
+                <th>Date de fin de contrat</th>
+                <th>Date de création de compte</th>
+                </tr>
+            </thead>
+            <tbody>
+            <?php if (!empty($salaries)): ?>
+            <?php foreach($salaries as $salarie): ?>
+                <tr>
+                <td><?= htmlspecialchars($salarie["id_salarie"] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
+                <td><?= htmlspecialchars($salarie["prenom"] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
+                <td><?= htmlspecialchars($salarie["nom"] ?? "", ENT_QUOTES, 'UTF-8') ?></td>
+                <td><?= htmlspecialchars($salarie["role_salarie"] ?? "", ENT_QUOTES, 'UTF-8') ?></td>
+                <td><?= htmlspecialchars($salarie["email"] ?? '', ENT_QUOTES, 'UTF-8') ?></td>   
+                <td><?= htmlspecialchars($salarie["telephone"] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
+                <td><?= htmlspecialchars($salarie["adresse"] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
+                <td><?= htmlspecialchars($salarie["code_postal"] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
+                <td><?= htmlspecialchars($salarie["ville"] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
+                <td><?= htmlspecialchars($salarie["date_embauche"] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
+                <td><?= htmlspecialchars($salarie["type_contrat"] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
+                <td><?= htmlspecialchars($salarie["fonction"] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
+                <td><?= htmlspecialchars($salarie["date_prise_fonction"] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
+                <td><?= htmlspecialchars($salarie["date_fin_contrat"] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
+                <td><?= htmlspecialchars($salarie["date_creation_compte"] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
+            </tr>
+            <?php endforeach; ?>
+            <?php else: ?>
+            <tr>
+            <td colspan="15">Aucun employé enregistré.</td>
+            </tr>
+            <?php endif; ?>
+            </tbody>
+            </table>
+            </section>
+            </section>
+            <section class="espace_employe">
+            <h2>Espace "Commandes en cours"</h2>
+        <section class="commandes_en_cours">
             <table border="1">
             <thead>
                 <tr>
                 <th>N° Commande</th>
                 <th>Nom Client</th>
                 <th>Date livraison</th>
+                <th>Tranche horaire de livraison</th>
                 <th>Ville livraison</th>
                 <th>Type Menu</th>
                 <th>Nb convives</th>
                 <th>Prix total</th>
+                <th>Prêt matériel </th>
                 <th>Statut Commande</th>
                 </tr>
             </thead>
-            <tbody>          
+            <tbody>
             <?php if (!empty($commandes)): ?>
             <?php foreach($commandes as $commande): ?>
                 <tr>
                 <td><?= htmlspecialchars($commande["id_commande"] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
                 <td><?= htmlspecialchars($commande["nom_client"] ?? "", ENT_QUOTES, 'UTF-8') ?></td>
                 <td><?= htmlspecialchars($commande["date_livraison"] ?? "", ENT_QUOTES, 'UTF-8') ?></td>
+                <td><?= htmlspecialchars($commande["tranche_horaire"] ?? "", ENT_QUOTES, 'UTF-8') ?></td>
                 <td><?= htmlspecialchars($commande["ville_livraison"] ?? "", ENT_QUOTES, 'UTF-8') ?></td>
                 <td><?= htmlspecialchars($commande["nom_menu"] ?? "", ENT_QUOTES, 'UTF-8') ?></td>
-                <td><?= htmlspecialchars($commande["nb_personnes"] ?? "", ENT_QUOTES, 'UTF-8') ?></td>
+                <td><?= htmlspecialchars($commande["nombre_personnes"] ?? "", ENT_QUOTES, 'UTF-8') ?></td>
                 <td><?= number_format((float)($commande["prix_total"] ?? 0), 2, ',', ' ') ?> €</td>          
+                <td><?php if ((int) ($commande['pret_materiel'] ?? 0) === 0): ?> Aucun matériel à rendre
+                    <?php elseif ((int) ($commande['retour_materiel'] ?? 0) === 1): ?> Matériel rendu
+                    <?php else: ?>A rendre
+                    <?php endif; ?>
+                </td>
                 <td>
-                <?php $statut = trim($commande['statut_commande'] ?? ''); ?>
             <form method="POST" action="modifier_statut.php">
                 <input type="hidden" name="id_commande"
                     value="<?= htmlspecialchars($commande['id_commande'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
-                    <select name="statut_commande">
-                    <option value="en attente d acceptation"
-                <?= $statut === "en attente d acceptation" ? 'selected' : '' ?>>
-                En attente d'acceptation
+                <select name="id_statut_commande">
+                    <option value="1"
+                    <?= (int)($commande['id_statut_commande'] ?? 0) === 1 ? 'selected' : '' ?>>
+                    En attente d'acceptation
                     </option>
-                    <option value="acceptee"
-                <?= $statut === 'acceptee' ? 'selected' : '' ?>>
-                Acceptée
+                    <option value="2"
+                    <?= (int)($commande['id_statut_commande'] ?? 0) === 2 ? 'selected' : '' ?>>
+                    Acceptée
                     </option>
-                    <option value="en preparation"
-                <?= $statut === 'en preparation' ? 'selected' : '' ?>>
-                En préparation 
+                    <option value="3"
+                    <?= (int)($commande['id_statut_commande'] ?? 0) === 3 ? 'selected' : '' ?>>
+                    En préparation 
                     </option>
-                    <option value="en cours de livraison"
-                <?= $statut === 'en cours de livraison' ? 'selected' : '' ?>>
-                En cours de livraison  
+                    <option value="4"
+                    <?= (int)($commande['id_statut_commande'] ?? 0) === 4 ? 'selected' : '' ?>>
+                    En cours de livraison 
                     </option>
-                    <option value="livree"
-                <?= $statut === 'livree' ? 'selected' : '' ?>>
-                Livrée
+                    <option value="5"
+                    <?= (int)($commande['id_statut_commande'] ?? 0) === 5 ? 'selected' : '' ?>>
+                    Livrée
                     </option>
-                    <option value="en attente de retour de materiel"
-                <?= $statut === 'en attente de retour de materiel' ? 'selected' : '' ?>>
-                En attente de retour du matériel
+                    <option value="6"
+                    <?= (int)($commande['id_statut_commande'] ?? 0) === 6 ? 'selected' : '' ?>>
+                    En attente du retour du matériel 
                     </option>
-                    <option value="terminee"
-                <?= $statut === 'terminee' ? 'selected' : '' ?>>
-                Terminée
+                    <option value="7"
+                    <?= (int)($commande['id_statut_commande'] ?? 0) === 7 ? 'selected' : '' ?>>
+                    Terminée 
                     </option>
-                    <option value="annulee"
-                <?= $statut === 'annulee' ? 'selected' : '' ?>>
-                Annulée
+                    <option value="8"
+                    <?= (int)($commande['id_statut_commande'] ?? 0) === 8 ? 'selected' : '' ?>>
+                    Annulée
                     </option>
                 </select>
-            <button type="submit">Modifier</button>
-        </form>
+                <button type="submit">Modifier</button>
+            </form>
                 </td>
                 </tr>
             <?php endforeach; ?>
             <?php else: ?>
                 <tr>
-                <td colspan="8">Aucune commande en cours actuellement.</td>
+                <td colspan="9">Aucune commande en cours actuellement.</td>
                 </tr>
             <?php endif; ?>
             </tbody>
             </table>
         </section>
-         <section>       
+        <section>       
             <h2>Espace "Commandes en cours : Précisions des menus"</h2>
         <section class="precisions_menus">
             <table border="1">
@@ -209,61 +371,155 @@ $menus = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 </tr>
             </thead>
             <tbody>
-            <?php if (!empty($commandes)): ?>
+            <?php if (!empty($precision_commandes)): ?>
             <?php foreach($precision_commandes as $commande): ?>
                 <tr>
                 <td><?= htmlspecialchars($commande["id_commande"] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
                 <td><?= htmlspecialchars($commande["date_livraison"] ?? "", ENT_QUOTES, 'UTF-8') ?></td>
                 <td><?= htmlspecialchars($commande["nom_menu"] ?? "", ENT_QUOTES, 'UTF-8') ?></td>
-                <td><?= htmlspecialchars($commande["nb_personnes"] ?? "", ENT_QUOTES, 'UTF-8') ?></td>
-                <td><?= htmlspecialchars($commande["nb_entree1"] ?? "", ENT_QUOTES, 'UTF-8') ?></td>
-                <td><?= htmlspecialchars($commande["nb_entree2"] ?? "", ENT_QUOTES, 'UTF-8') ?></td>    
-                <td><?= htmlspecialchars($commande["nb_dessert1"] ?? "", ENT_QUOTES, 'UTF-8') ?></td>     
-                <td><?= htmlspecialchars($commande["nb_dessert2"] ?? "", ENT_QUOTES, 'UTF-8') ?></td>  
+                <td><?= htmlspecialchars($commande["nombre_personnes"] ?? "", ENT_QUOTES, 'UTF-8') ?></td>
+                <td><?= htmlspecialchars($commande["nombre_entree1"] ?? "", ENT_QUOTES, 'UTF-8') ?></td>
+                <td><?= htmlspecialchars($commande["nombre_entree2"] ?? "", ENT_QUOTES, 'UTF-8') ?></td>    
+                <td><?= htmlspecialchars($commande["nombre_dessert1"] ?? "", ENT_QUOTES, 'UTF-8') ?></td>     
+                <td><?= htmlspecialchars($commande["nombre_dessert2"] ?? "", ENT_QUOTES, 'UTF-8') ?></td>  
                 </tr>
             <?php endforeach; ?>
-            <?php else: ?>
+           <?php else: ?>
                 <tr>
                 <td colspan="8">Aucune commande en cours actuellement.</td>
                 </tr>
             <?php endif; ?>
-            </tbody>
+            </tbody> 
             </table>
         </section>
-        <section>
-            <h2>Espace "menus"</h2>
+        </section>
         <section class="menus">
+        <h2>Espace « menus »</h2>
+        <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Titre du menu</th>
+                <th>Nombre de personnes minimum</th>
+                <th>Prix par personne</th>
+                <th>Entrée 1</th>
+                <th>Entrée 2</th>
+                <th>Plat principal</th>
+                <th>Dessert 1</th>
+                <th>Dessert 2</th>
+                <th>Régime</th>
+                <th>Thème</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($menus as $menu): ?>
+        <?php
+            $plats = explode("|||", $menu["noms_plats"] ?? ""); ?>
+            <tr>
+                <td><?= htmlspecialchars($menu["id_menu"] ?? "", ENT_QUOTES, "UTF-8") ?></td>
+                <td><?= htmlspecialchars($menu["nom_menu"] ?? "", ENT_QUOTES, "UTF-8") ?></td>
+                <td><?= htmlspecialchars($menu["nb_personnes_minimum"] ?? "", ENT_QUOTES, "UTF-8") ?></td>
+                <td><?= htmlspecialchars($menu["prix_par_personne_euros"] ?? "", ENT_QUOTES, "UTF-8") ?> €</td>
+                <td><?= htmlspecialchars($plats[0] ?? "", ENT_QUOTES, "UTF-8") ?></td>
+                <td><?= htmlspecialchars($plats[1] ?? "", ENT_QUOTES, "UTF-8") ?></td>
+                <td><?= htmlspecialchars($plats[2] ?? "", ENT_QUOTES, "UTF-8") ?></td>
+                <td><?= htmlspecialchars($plats[3] ?? "", ENT_QUOTES, "UTF-8") ?></td>
+                <td><?= htmlspecialchars($plats[4] ?? "", ENT_QUOTES, "UTF-8") ?></td>
+                <td><?= htmlspecialchars($menu["nom_regime"] ?? "", ENT_QUOTES, "UTF-8") ?></td>
+                <td><?= htmlspecialchars($menu["libelle_theme"] ?? "", ENT_QUOTES, "UTF-8") ?></td>
+                <td><?= htmlspecialchars($menu["description_menu"] ?? "", ENT_QUOTES, "UTF-8") ?></td>
+            </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</section>
+ <section class="actions_menus" aria-labelledby="titre_actions_menus">
+            <h3 id="titre_actions_menus" class="sr_only"> Actions de gestion des menus</h3>
+        <form action="modifier_menu.php" method="get">
+        <label for="menu_a_modifier">Menu à modifier :</label>
+        <select name="id_menu" id="menu_a_modifier" required>
+            <option value="">Sélectionnez un menu</option>
+            <?php foreach ($menus as $menu): ?>
+                <option value="<?= (int) $menu["id_menu"] ?>"><?= htmlspecialchars($menu["nom_menu"] ?? "", ENT_QUOTES,"UTF-8") ?></option>
+            <?php endforeach; ?></select>
+        <button type="submit" class="bouton_menu">Modifier le menu</button></form>
+        <a href="ajouter_plat.php" class="bouton_menu">Ajouter un nouveau plat</a>
+        <a href="ajouter_menu.php" class="bouton_menu">Ajouter un menu</a>
+    </section>
+     <h2>ESPACE "VALIDATION DES AVIS CLIENT"</h2>
+    <section class="validation_avis">  
             <table border="1">
             <thead>
                 <tr>
-                <th>ID</th>
-                <th>Titre Menu</th>
-                <th>Nb personnes minimum</th>
-                <th>Prix par personne en euro</th>
-                <th>Nom des plats</th>
-                <th>Nom du régime</th>
-                <th>Description</th>
+                <th>N° Commande</th>
+                <th>Nom Client</th>
+                <th>Pseudo</th>
+                <th>Note</th>
+                <th>Commentaire</th>
+                <th>Validation</th>
+               </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($avis_en_attente as $avis): ?>
+                <?php
+                    $requete_nom_client->execute([
+                     ":id_utilisateur" => (int) $avis["id_utilisateur"]]);
+                    $nom_client = $requete_nom_client->fetchColumn();?>
+            <tr>
+                <td><?= (int) $avis["id_commande"] ?></td>
+                <td><?= htmlspecialchars($nom_client ?: "Utilisateur inconnu", ENT_QUOTES, "UTF-8") ?></td>
+                <td><?= htmlspecialchars((string) $avis["pseudo"], ENT_QUOTES, "UTF-8") ?></td>
+                <td><?= (int) $avis["note"] ?>/5</td>
+                <td><?= htmlspecialchars((string) $avis["commentaire"], ENT_QUOTES, "UTF-8") ?></td>
+                <td>
+                <form
+                    action="traitement_validation_avis.php" method="post">
+                    <input type="hidden" name="id_avis" 
+                    value="<?= htmlspecialchars((string) $avis["_id"], ENT_QUOTES, "UTF-8") ?>">
+
+                    <button type="submit" name="action" value="valider">Valider</button>
+                    <button type="submit" name="action" value="refuser">Refuser</button>
+                </form>
+                </td>    
+            </tr>
+             <?php endforeach; ?>
+            </tbody>
+            </table>
+            </section>
+        <h2>ESPACE "AVIS REFUSES"</h2>
+        <section class="avis_refuses">  
+            <table border="1">
+            <thead>
+                <tr>
+                <th>N° Commande</th>
+                <th>Nom Client</th>
+                <th>Pseudo</th>
+                <th>Note</th>
+                <th>Commentaire</th>
                 </tr>
             </thead>
             <tbody>
-            <?php foreach($menus as $menu): ?>
-                <tr>
-                <td><?= htmlspecialchars($menu["id_menus"] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
-                <td><?= htmlspecialchars($menu["titre_menus"] ?? "", ENT_QUOTES, 'UTF-8') ?></td>
-                <td><?= htmlspecialchars($menu["nb_personnes_minimum"] ?? "", ENT_QUOTES, 'UTF-8') ?></td>
-                <td><?= htmlspecialchars($menu["prix_par_personne_euros"] ?? "", ENT_QUOTES, 'UTF-8') ?></td>
-                <td><?= htmlspecialchars($menu["nom_plat"] ?? "", ENT_QUOTES, 'UTF-8') ?></td>
-                <td><?= htmlspecialchars($menu["nom_regime"] ?? "", ENT_QUOTES, 'UTF-8') ?></td>
-                <td><?= htmlspecialchars($menu["description"] ?? "", ENT_QUOTES, 'UTF-8') ?></td>
-                </tr>
+                <?php if (!empty($avis_refuses)): ?>
+                <?php foreach ($avis_refuses as $avis): ?>
+                <?php $requete_nom_client->execute([":id_utilisateur" => (int) $avis["id_utilisateur"]]);
+                    $nom_client = $requete_nom_client->fetchColumn();?>
+            <tr>
+                <td><?= (int) $avis["id_commande"] ?></td>
+                <td><?= htmlspecialchars($nom_client ?: "Utilisateur inconnu", ENT_QUOTES, "UTF-8") ?></td>
+                <td><?= htmlspecialchars((string) $avis["pseudo"], ENT_QUOTES, "UTF-8") ?></td>
+                <td><?= (int) $avis["note"] ?>/5</td>
+                <td><?= htmlspecialchars((string) $avis["commentaire"], ENT_QUOTES, "UTF-8") ?></td>
+            </tr>
             <?php endforeach; ?>
+            <?php else: ?>
+                <tr>
+                <td colspan="5">Aucun avis refusé.</td>
+                </tr>
+            <?php endif; ?>
             </tbody>
             </table>
-        </section>
-            <h2>ESPACE "VALIDATION DES AVIS CLIENT"</h2>
-           
-        </section>
-        </section>      
+     </section>      
     </main>
     <!-- liaison avec la page externe de Javascript -->
 <script src="javascript/menu_burger.js"></script>

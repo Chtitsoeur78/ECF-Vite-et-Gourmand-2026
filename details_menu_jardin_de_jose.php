@@ -29,25 +29,61 @@
         </section>
     </header>    
     <main>
-        <section class="details_menu_delices">
-              <h2> le menu "Le Jardin de José" </h2>
-              <p>galerie de photos</p>
-              <p>Thème : Repas classique</p>
-              <p>La liste des plats du menu : 
-                <p>Entrées </p>
-                <div>+ Salade de fenouil, menthe et orange</div>
-                <div>+ Gaspacho </div>
-                <p>Plat du Jour</p>
-                <div>+ Poivrons farcis au Quinoa</div>
-                <p>Desserts (mode végane)</p>
-                <div>+ Tarte au citron</div>
-                <div>+ Muffins aux fruits </div>
-              </p>
+        <section class="details_menus">
+              <h2> Ce mois-ci : Menu "Le Jardin de José" </h2>
+              <h3>Galerie photos</h3>
+    <p>Cliquez sur chaque photo pour lire son commentaire.</p>
+    <div class="galerie">
+      <figure>
+        <img src="images/charentes/menu_charentais.png" alt="Présentation du menu charentais de Vite & Gourmand comprenant au choix des huîtres de Marennes-Oléron ou des grattons charentais en entrée, une mouclade charentaise en plat principal, puis une galette charentaise ou un millas charentais en dessert">
+        <figcaption>Découvrez les spécialités des Charentes réunies dans un menu complet proposé par Vite & Gourmand : Régalez-vous avec les Charentes dans votre assiette.</figcaption>
+      </figure>
+      <figure>
+        <img src="images/charentes/huitres_marennes_oleron.png" alt="Plateau d'une douzaine d'huîtres de Marennes-Oléron présenté avec des quartiers de citron">
+        <figcaption>Une douzaine d'huîtres de Marennes-Oléron : les huîtres charentaises par excellence ! </figcaption>
+      </figure>
+       <figure>
+        <img src="images/charentes/gratton_charentais.png" alt="Assiette de grattons charentais présentés pour la dégustation">
+        <figcaption>Les grattons charentais, une spécialité régionale à base de porc proposée en entrée.</figcaption>
+      </figure>
+      <figure>
+        <img src="images/charentes/mouclade.png" alt="La Mouclade charentaise, préparée avec des moules dans une sauce crémeuse safranée">
+        <figcaption>Pour savourer les moules des côtes charentaises, laissez-vous tenter par la mouclade, une recette traditionnelle.</figcaption>
+      </figure>
+      <figure>
+        <img src="images/charentes/galette_charentaise.png" alt="Une galette charentaise avec une part découpée">
+        <figcaption>Pour terminer votre voyage gourmand dans les Charentes, vous vous laisserez tenter par la galette charentaise, un dessert traditionnel de la région.</figcaption>
+      </figure>
+      <figure>
+        <img src="images/charentes/millas_charentais.png" alt="Part de millas charentais découpée dans un gâteau rond">
+        <figcaption>Une autre découverte pour terminer le repas ? Le millas charentais, gâteau à base de farine de maïs à la texture fondante.  </figcaption>
+      </figure>
+      </div>        
+         <p>Thème : Repas classique</p>
+         <h3>Liste des plats du menu : </h3>
+             <h4>Entrées </h4>
+                <ul>
+                    <li>Salade de fenouil, menthe et orange</li>
+                    <li>Gaspacho </li>
+                </ul>
+              <h4>Plat du Jour</h4>
+                <ul>
+                    <li>Poivrons farcis au Quinoa</li>
+                </ul>
+              <h4>Desserts (mode végane)</h4>
+                <ul>
+                    <li>Tarte au citron</li>
+                    <li>Muffins aux fruits </li>
+                </ul>
               <p>Nombre minimal de personnes : 4</p>
               <p>Prix pour le nombre minimal : 160 euros</p>
               <p>Les allergènes :  </p>
+                <ul>
+                    <li>gluten (farine de blé) :  Pain perdu à la sauce caramel, Bûche citron au praliné.</li>
+                </ul>
+              <p>Malgré toute notre vigilance, des traces d'autres allergènes peuvent être présentes en raison des conditions de préparation. Pour toute allergie alimentaire, n'hésitez pas à nous contacter avant de passer votre commande.</p>
               <p>Conditions particulières : </p>
-              <p>Régime : Classique</p>
+              <p>Régime : Végane</p>
               <p>Stock disponible : dans la mesure du possible, les plats sont cuisinés à la demande</p>
           <?php if (isset($_SESSION['id_utilisateur'])): ?>
               <a href="formulaire_commande.php?menu=menu_jardin_de_jose" class="bouton_commande">COMMANDE</a>
@@ -55,8 +91,11 @@
               <a href="formulaire_connexion_utilisateur.php" class="bouton_commande">SE CONNECTER POUR COMMANDER</a>
           <?php endif; ?> 
         </section>
-    </main>  
-  <!-- liaison avec la page externe de Javascript -->
+     </section>
+      </main>
+       <?php include "footer.php"; ?>  
+    <!-- liaison avec la page externe de Javascript -->
     <script src="javascript/menu_burger.js"></script> 
+    <script src="javascript/galerie.photos.js"></script> 
   </body>
 </html>
