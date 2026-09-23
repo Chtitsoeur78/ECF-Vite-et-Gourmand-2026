@@ -86,7 +86,7 @@ session_start();
                 <ul>
                     <li>mollusques : Huîtres de Marenne-Oléron, Mouclade (moules)</li>
                     <li>gluten (farine de blé) : Galette charentaise, millas charentais</li>
-                    <li>oeufs : Galette charentaise, millas charentaisGalette charentaise, millas charentais</li></li>
+                    <li>oeufs : Galette charentaise, millas charentais</li>
                     <li>lait : Galette charentaise, millas charentais</li>
                 </ul>
             <p>Malgré toute notre vigilance, des traces d'autres allergènes peuvent être présentes en raison des conditions de préparation. Pour toute allergie alimentaire, n'hésitez pas à nous contacter avant de passer votre commande.</p>

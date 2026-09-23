@@ -4,8 +4,7 @@ session_start();
 if (isset($_SESSION['id_utilisateur'])) {
     header('Location: espace_utilisateur.php');
     exit();
-}
-?>
+}?>
 <!doctype html>
 <html lang="fr">
   <head>
@@ -17,7 +16,7 @@ if (isset($_SESSION['id_utilisateur'])) {
     <link rel="stylesheet" href="css/menu_burger.css"/>
     <link rel="stylesheet" href="css/formulaire_inscription.css"/>
     <title>
-      Vite & Gourmand - Formulaire de connexion</title>
+      Vite & Gourmand - Formulaire de connexion - Utilisateur</title>
   </head>
   <!-- body : Contenu de la page -->
   <body>
@@ -26,7 +25,7 @@ if (isset($_SESSION['id_utilisateur'])) {
           <?php include "menu_burger.php"; ?>
       </section>
       <section>    
-          <h1>Connexion - Utilisateur</h1>
+          <h1>Connexion Utilisateur</h1>
       </section> 
       <section class="logo">
         <img src="images/logo1.png" alt="Logo de Vite et Gourmand, la plate-forme pour manger vite et bien"/>
@@ -35,7 +34,7 @@ if (isset($_SESSION['id_utilisateur'])) {
     <main>
         <form action="traitement_connexion_utilisateur.php" method="post">
         <fieldset>
-            <legend class="legend">Direction votre espace - utilisateur</legend>
+            <legend class="legend">Direction votre Espace - Utilisateur</legend>
         <p>
             <label for="email">E-MAIL * : </label>
             <input type="email" required id="email" name="email" placeholder="xxm@yy.zz" >
@@ -45,14 +44,12 @@ if (isset($_SESSION['id_utilisateur'])) {
             <input type="password" required id="mot_de_passe" name="mot_de_passe" minlength="10" maxlength="80" placeholder="xxxxxxxxxxxxx"/>
         </p>
         <p>
-            <button type="submit" name="OK" value="Envoyer"> Connectez vous</button>    
+            <button type="submit" name="OK" value="Envoyer"> Connectez - vous</button>    
         </p>
-       <p>
-            <button type="button" onclick="window.location.href='motdepasse_oublie.php'"> Mot de passe oublié ? </button>
-        </p>
+        <p><a href="motdepasse_oublie_utilisateur.php">Mot de passe oublié ?</a></p>        
         </fieldset>
         </form>
-        </main>
+    </main>
 <!-- liaison avec la page externe de Javascript -->
 <script src="javascript/menu_burger.js"></script> 
 </body>

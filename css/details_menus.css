@@ -1,15 +1,15 @@
 .bouton_commande {
-  display: flex;
-  width: fit-content;
-  margin: 1.5rem auto;
+  display: inline-flex;
   justify-content: center;
   align-items: center;
+  width: AUTO;
+  height: auto;
+  margin: 1.5rem auto;
+  padding: 0.8rem 1.2rem;
   background-color: #44ca68;
   border: 0.1rem solid #064e38;
   border-radius: 1.5rem;
-  color: #064e3b;
   font-weight: bold;
-  padding: 0.8rem 1.2rem;
   font-size: 0.7rem; /* réduit pour tenir sur mobile */
   color: #ffffff;
   word-break: normal;

@@ -2,11 +2,7 @@
 ini_set('log_errors', 1);
 ini_set('error_log', __DIR__ . '/erreurs.log');
 
-//Connexion à la base de données
-$host = "localhost";
-$dbname = "vite_et_gourmand";
-$username = "dev_vg";
-$password = "VITEETGOURMANDBDD1738*";
+require_once __DIR__ . '/configuration_bdd.php';
 
 $options = [
     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
@@ -20,11 +16,11 @@ try {
         $password,
         $options
     );
+
 } catch (PDOException $e) {
     error_log($e->getMessage());
     die("Une erreur de connexion est survenue.");
 }
-?>
 
 
 

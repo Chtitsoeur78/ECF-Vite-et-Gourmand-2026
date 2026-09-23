@@ -16,6 +16,7 @@ $employe = $requete->fetch(PDO::FETCH_ASSOC);
 
         $_SESSION['id_employe'] = $employe['id_salarie'];
         $_SESSION['id_role'] = $employe['id_role'];
+        $_SESSION['prenom'] = $employe['prenom'];
 
 if ($employe['id_role'] == 1) {
     header("Location: espace_administrateur.php");

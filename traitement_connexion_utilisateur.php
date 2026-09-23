@@ -15,6 +15,7 @@ $utilisateur = $requete->fetch();
         $_SESSION["id_utilisateur"] = $utilisateur["id_utilisateur"];
         $_SESSION["email"] = $utilisateur["email"];
         $_SESSION["prenom"] = $utilisateur["prenom"];
+        $_SESSION["pseudo"] = $utilisateur["pseudo"];
 
         header("Location: espace_utilisateur.php");
         exit;
