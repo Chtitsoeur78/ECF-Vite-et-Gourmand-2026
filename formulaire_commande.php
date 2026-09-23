@@ -1,10 +1,6 @@
-<?php
+s<?php
 session_start();
 require_once "connexion.php";
-
-
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
 
 if (!isset($_SESSION['id_utilisateur'])) {
     header("Location: connexion.php");
@@ -33,98 +29,89 @@ $menu = $_GET['menu'] ?? '';
 
 $menus = [
     'menu_charentes' => [
-        'nom' => 'Menu Charentes',
+        'id_menu' => 1,
+        'nom' => 'Menu charentais',
         'prix_par_personne' => 50,
+        'nb_personnes_minimum' => 4,
     ],
     
     'menu_delices' => [
+         'id_menu' => 2,
         'nom' => 'Menu Délices',
         'prix_par_personne' => 40,
+        'nb_personnes_minimum' => 4,
     ], 
     
- 'menu_table_maraichere' => [
-        'nom' => 'Table Maraichère',
+    'menu_table_maraichere' => [
+        'id_menu' => 3,
+        'nom' => 'Menu Table maraîchère',
         'prix_par_personne' => 45,
+        'nb_personnes_minimum' => 4,
     ],
       
   'menu_jardin_de_jose' => [
-        'nom' => 'Jardin de José',
+         'id_menu' => 4,
+        'nom' => 'Menu Le Jardin de José',
         'prix_par_personne' => 45,
+        'nb_personnes_minimum' => 4,
     ],
 
   'menu_mariage' => [
-        'nom' => 'Mariage',
+        'id_menu' => 5,
+        'nom' => 'Menu Mariage',
         'prix_par_personne' => 80,
+        'nb_personnes_minimum' => 12,
     ], 
 
    'menu_fiesta' => [
-        'nom' => 'Fiesta',
+        'id_menu' => 6,
+        'nom' => 'Menu Fiesta',
         'prix_par_personne' => 60,
+        'nb_personnes_minimum' => 4,
     ],
  ];
 
+$idMenu = $menus[$menu]['id_menu'] ?? 0;
 $nomMenu = $menus[$menu]['nom'] ?? 'Menu inconnu';
 $prixParPersonne = $menus[$menu]['prix_par_personne'] ?? 0;
 
-$entree1 = '';
-$entree2 = '';
-$dessert1 = '';
-$dessert2 = '';
+$stmtPlats = $pdo->prepare("
+    SELECT
+        plat.id_plat,
+        plat.nom_plat,
+        plat.pret_materiel
+    FROM plat
+    INNER JOIN menus_plats
+        ON plat.id_plat = menus_plats.id_plat
+    WHERE menus_plats.id_menu = ?
+    ORDER BY plat.id_plat ASC
+");
 
-if ($menu == 'menu_charentes') {
+$stmtPlats->execute([$idMenu]);
+$platsDuMenu = $stmtPlats->fetchAll(PDO::FETCH_ASSOC);
 
-    $entree1 = 'Huitres de Marennes Oleron';
-    $entree2 = 'Grattons charentais';
-    $dessert1 = 'Galette charentaise';
-    $dessert2 = 'Millas charentais';
+if (count($platsDuMenu) !== 5) {
+    die("Les plats de ce menu sont incomplets.");
 }
 
-if ($menu == 'menu_delices') {
+$entree1 = $platsDuMenu[0]['nom_plat'];
+$entree2 = $platsDuMenu[1]['nom_plat'];
+$platPrincipal = $platsDuMenu[2]['nom_plat'];
+$dessert1 = $platsDuMenu[3]['nom_plat'];
+$dessert2 = $platsDuMenu[4]['nom_plat'];
 
-    $entree1 = 'Salade niçoise';
-    $entree2 = 'Quiche lorraine';
-    $dessert1 = 'Iles flottante';
-    $dessert2 = 'Clafoutis aux cerises';
-}
-
-if ($menu == 'menu_table_maraichere') {
-
-    $entree1 = 'Salade de concombres au yaourt';
-    $entree2 = 'Poires farcies au gorgonzola';
-    $dessert1 = 'Pain perdu à la sauce caramel';
-    $dessert2 = 'Buche citron a la praline';
-}
-
-if ($menu == 'menu_jardin_de_jose') {
-
-    $entree1 = 'Salade de fenouil, menthe et orange';
-    $entree2 = 'gaspacho';
-    $dessert1 = 'Tarte au citron mode vegane';
-    $dessert2 = 'Muffins aux fruits mode vegane';
-}
-
-if ($menu == 'menu_mariage') {
-
-    $entree1 = 'Foie gras avec chutney de figue et pain d épice';
-    $entree2 = 'Homard rôti à la citronelle';
-    $dessert1 = 'Profiterolles au chocolat noir truffees aux airelles';
-    $dessert2 = 'Pièce-montée de choux et nougatine';
-}
-
-if ($menu == 'menu_fiesta') {
-
-    $entree1 = 'Toasts au fromage de chèvre à la poire';
-    $entree2 = 'Roulés de jambon au fromage et herbes';
-    $dessert1 = 'Riz souffle aux smarties';
-    $dessert2 = 'Dôme au chocolat praline';
-}
+$pretMaterielEntree1 = (int) $platsDuMenu[0]['pret_materiel'];
+$pretMaterielEntree2 = (int) $platsDuMenu[1]['pret_materiel'];
+$pretMaterielPlatPrincipal = (int) $platsDuMenu[2]['pret_materiel'];
+$pretMaterielDessert1 = (int) $platsDuMenu[3]['pret_materiel'];
+$pretMaterielDessert2 = (int) $platsDuMenu[4]['pret_materiel'];
 
 $stmtCommande = $pdo->prepare("
 SELECT
     commandes.id_commande,
     commandes.date_livraison,
     commandes.nom_menu,
-    commandes.nb_personnes,
+    commandes.nombre_personnes,
     commandes.prix_total,
     commune_gironde.frais_livraison_euros AS frais_livraison_euros,
     statut_commande.libelle_statut AS statut_commande,
@@ -204,8 +191,12 @@ if (!empty($utilisateur['livraison_id_commune'])) {
       </section>
     </header>
     <main>
-      <form action="traitement_commande.php" method="post"> 
-        <fieldset>
+       <form
+          id="formulaire_commande" action="traitement_commande.php" method="post"
+          data-prix-par-personne="<?= htmlspecialchars((string) $prixParPersonne, ENT_QUOTES, 'UTF-8') ?>"
+          data-frais-livraison="<?= htmlspecialchars((string) $fraisLivraison, ENT_QUOTES, 'UTF-8') ?>"
+          data-pret-materiel-plat-principal="<?= $pretMaterielPlatPrincipal ?>">
+          <fieldset>
           <legend class="legend">Vos Données Personnelles</legend>
           <p>
             <label for="prenom">PRÉNOM * :</label>
@@ -248,14 +239,12 @@ if (!empty($utilisateur['livraison_id_commune'])) {
           <legend class="legend">Date et heure de Livraison</legend>
           <p>
             <label for="date_livraison">DATE DE LIVRAISON *</label>
-            <input type="date" required 
-            id="date_livraison" 
-            name="date_livraison" 
-            placeholder="-- / -- / 20--"/>
+            <input type="date" required id="date_livraison" name="date_livraison" placeholder="-- / -- / 20--"/>
           </p>
            <p>
             <label for="id_horaire_livraison"> Dans quelle tranche-horaire voulez vous être livré ? *</label>
             <select name="id_horaire_livraison" id="id_horaire_livraison" required>
+            <option value="">Choisir</option>
             <option value="1">de 11h à 13h</option>       
             <option value="2">de 13h à 15h</option>
             <option value="3">de 18h à 20h</option> 
@@ -294,7 +283,7 @@ if (!empty($utilisateur['livraison_id_commune'])) {
             <input type="text"
             id="livraison_id_commune" 
             placeholder="nom de la ville"
-            value="<?= htmlspecialchars($utilisateur['commune_gironde']) ?>" readonly>
+            value="<?= htmlspecialchars($utilisateur['commune_gironde']) ?>">
           </p>
           <input type="hidden"
           name="id_commune"
@@ -303,14 +292,16 @@ if (!empty($utilisateur['livraison_id_commune'])) {
         <fieldset>
             <legend class="legend">Nombre de convives</legend>
           <p>
-            <label for="nb_personnes">NOMBRE DE CONVIVES * :</label>
-            <input type="number" min="4" required
-            id="nb_personnes" 
-            name="nb_personnes"
-            placeholder="----"/>
+            <label for="nombre_personnes">NOMBRE DE CONVIVES * :</label>
+            <input type="number" min="<?= (int) $menus[$menu]['nb_personnes_minimum'] ?>" step="1" required
+            id="nombre_personnes" name="nb_personnes" placeholder="----"/>         
           </p>
-        </fieldset>
-        <fieldset>
+  
+         <p> Minimum pour ce menu :
+            <?= (int) $menus[$menu]['nb_personnes_minimum'] ?> personnes.
+        </p>
+      </fieldset>
+      <fieldset>
             <legend class="legend">Menu choisi</legend>
           <p>
             <label for="nom_menu">MENU CHOISI * :</label>
@@ -320,66 +311,76 @@ if (!empty($utilisateur['livraison_id_commune'])) {
             placeholder="type de menu choisi"
             value="<?= htmlspecialchars($nomMenu) ?>"
             readonly>
+            <input
+            type="hidden"
+            name="id_menu"
+            value="<?= htmlspecialchars($idMenu) ?>">
           </p>
-          <p>
-          <h3>Entrées</h3>
+          <p>Entrées : </p>
           <label><?= htmlspecialchars($entree1) ?></label>
-          <input type="number" name="nb_entree1" min="0" value="0">
+          <input type="number" id="nb_entree1" name="nb_entree1" class="quantite_plat" min="0" value="0"
+          data-pret-materiel="<?= $pretMaterielEntree1 ?>">
           <label><?= htmlspecialchars($entree2) ?></label>
-          <input type="number" name="nb_entree2" min="0" value="0">
-          
-          <h3>Desserts</h3>
+          <input type="number" id="nb_entree2" name="nb_entree2" class="quantite_plat" min="0" value="0"
+          data-pret-materiel="<?= $pretMaterielEntree2 ?>">
+          <p>Desserts :</p>
           <label><?= htmlspecialchars($dessert1) ?></label>
-          <input type="number" name="nb_dessert1" min="0" value="0">
+          <input type="number" id="nb_dessert1" name="nb_dessert1" class="quantite_plat" min="0" value="0"
+          data-pret-materiel="<?= $pretMaterielDessert1 ?>">
           <label><?= htmlspecialchars($dessert2) ?></label>
-          <input type="number" name="nb_dessert2" min="0" value="0">          
-          </p>
-        </fieldset>
-          
-    <?php
-$nbPersonnes = $_POST['nb_personnes'] ?? 0;
-$prixParPersonne = $_POST['prix_par_personne'] ?? 0;
-
-$prixMenu = $nbPersonnes * $prixParPersonne;
-
-$fraisLivraison = $commande['frais_livraison_euros'] ?? 0;
-
-$total = $prixMenu + $fraisLivraison;
-?>
-<fieldset>
-            <legend class="legend">Les Prix </legend>
+          <input type="number" id="nb_dessert2" name="nb_dessert2" class="quantite_plat" min="0" value="0"
+          data-pret-materiel="<?= $pretMaterielDessert2 ?>">     
           <p>
-    Prix du menu :
-  <?= number_format((float)$prixMenu, 2, ',', ' ') ?> €
-  </p>
-  <p>
-    Frais de livraison :
-    <?= number_format((float)$fraisLivraison, 2, ',', ' ') ?>
-  </p>
-  <p>
-    Total :
-    <?= number_format(
-        (float)$prixMenu +
-        (float)$fraisLivraison,
-
-        2,
-        ',',
-        ' '
-    ) ?> €
-     </p>
-<p>
-            <label for="date_commande">Date de la commande :</label>
-            <input type="date" 
-            id="date_commande" 
-            name="date_commande" 
-            placeholder="-- / -- / 20--"/>
-            value="<?php echo date('Y-m-d'); ?>"/>
-      </p>
-      </p>
-    <button type="submit" name="OK" value="Envoyer">Envoyer la commande</button>
+            Matériel à rendre : <strong id="affichage_pret_materiel">Non</strong>
+          </p>
+      </fieldset>
+      <fieldset>
+            <legend class="legend">Les prix</legend>
+            <p>
+                Prix initial du menu :
+                <strong id="affichage_prix_initial">0,00 €</strong>
+            </p>
+            <p>
+                Réduction (10 %) :
+                <strong id="affichage_reduction">0,00 €</strong>
+            </p>
+            <p>
+                Prix du menu hors frais de livraison :
+                <strong id="affichage_prix_menu">0,00 €</strong>
+            </p>
+            <p>
+                Frais de livraison :
+                <strong>
+                    <?= number_format(
+                        (float) $fraisLivraison,
+                        2,
+                        ',',
+                        ' '
+                    ) ?> €
+                </strong>
+            </p>
+            <p>
+                Total à payer :
+                <strong id="affichage_prix_total">
+                    <?= number_format(
+                        (float) $fraisLivraison,
+                        2,
+                        ',',
+                        ' '
+                    ) ?> €
+                </strong>
+            </p>
+            <p>
+                <label for="date_commande">Date de la commande :</label>
+                <input type="date" id="date_commande" name="date_commande" value="<?= date('Y-m-d') ?>"readonly>
+            </p>
+        </fieldset>
+        <button type="submit" name="OK" value="Envoyer">Envoyer ma commande</button>
       </form>
     </main>
       <!-- liaison avec la page externe de Javascript -->
+      <script src="javascript/calcul_prix_commande.js"></script>
+      <script src="javascript/pret_materiel_commande.js"></script>
       <script src="javascript/menu_burger.js"></script> 
   </body>
 </html>

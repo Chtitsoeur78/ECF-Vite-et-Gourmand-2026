@@ -17,8 +17,11 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST") {
 }
 
 //Vérification du formulaire 
-    $id_statut_commande = trim($_POST["id_statut_commande"] ?? 0);
+    $id_statut_commande = 1;
     $id_commune = trim($_POST["id_commune"] ?? '');
+    $livraison_adresse = trim($_POST["livraison_adresse"] ?? "");
+    $livraison_adresse_complement = trim($_POST["livraison_adresse_complement"] ?? "");
+    $livraison_code_postal = trim($_POST["livraison_code_postal"] ?? "");
     $id_horaire_livraison = (int) ($_POST["id_horaire_livraison"] ?? 0);
     $prenom = trim($_POST["prenom"] ?? '');
     $nom = trim($_POST["nom"] ?? '');
@@ -73,14 +76,31 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     die("Le minimum de commande est de 4 convives.");
 }
 
+$total_entrees = $nb_entree1 + $nb_entree2;
+$total_desserts = $nb_dessert1 + $nb_dessert2;
+
+if ($total_entrees !== $nb_personnes) {
+    die(
+        "Erreur : le nombre total d'entrées doit être égal au nombre de personnes."
+    );
+}
+
+if ($total_desserts !== $nb_personnes) {
+    die(
+        "Erreur : le nombre total de desserts doit être égal au nombre de personnes."
+    );
+}
+
 $nb_personnes = (int) $_POST['nb_personnes'];
 $id_menu = (int) $_POST['id_menu'];
 $id_commune = (int) $_POST['id_commune'];
 
 $requete = $pdo->prepare("
-    SELECT prix_par_personne_euros
+    SELECT
+        prix_par_personne_euros,
+        nb_personnes_minimum
     FROM menus
-    WHERE id_menus = ?
+    WHERE id_menu = ?
 ");
 
 $requete->execute([$id_menu]);
@@ -90,9 +110,33 @@ if (!$menu) {
     die("Menu introuvable.");
 }
 
+$requetePlats = $pdo->prepare("
+    SELECT plat.pret_materiel
+    FROM plat
+    INNER JOIN menus_plats
+        ON plat.id_plat = menus_plats.id_plat
+    WHERE menus_plats.id_menu = ?
+    ORDER BY plat.id_plat ASC
+");
+
+$requetePlats->execute([$id_menu]);
+$platsDuMenu = $requetePlats->fetchAll(PDO::FETCH_COLUMN);
+
+if (count($platsDuMenu) !== 5) {
+    die("Les plats de ce menu sont incomplets.");
+}
+
+$pret_materiel = (
+    (int) $platsDuMenu[2] === 1
+    || ($nb_entree1 > 0 && (int) $platsDuMenu[0] === 1)
+    || ($nb_entree2 > 0 && (int) $platsDuMenu[1] === 1)
+    || ($nb_dessert1 > 0 && (int) $platsDuMenu[3] === 1)
+    || ($nb_dessert2 > 0 && (int) $platsDuMenu[4] === 1)
+) ? 1 : 0;
+
 $requete = $pdo->prepare("
     SELECT frais_livraison_euros
-    FROM communes_gironde
+    FROM commune_gironde
     WHERE id_commune = ?
 ");
 $requete->execute([$id_commune]);
@@ -102,36 +146,63 @@ if (!$commune) {
     die("Commune introuvable.");
 }
 
-$prix_menu = $nb_personnes * $menu['prix_par_personne_euros'];
-$frais_livraison_euros = $commune['frais_livraison_euros'];
-$prix_total = $prix_menu + $frais_livraison_euros;
+$prix_menu_initial =
+    $nb_personnes * (float) $menu['prix_par_personne_euros'];
 
+$seuil_reduction =
+    (int) $menu['nb_personnes_minimum'] + 5;
+
+if ($nb_personnes >= $seuil_reduction) {
+    $reduction = $prix_menu_initial * 0.10;
+} else {
+    $reduction = 0;
+}
+
+$prix_menu = round(
+    $prix_menu_initial - $reduction,
+    2
+);
+
+$frais_livraison_euros =
+    (float) $commune['frais_livraison_euros'];
+
+$prix_total = round(
+    $prix_menu + $frais_livraison_euros,
+    2
+);
 
 //Insertion en base de données
     $sql = "INSERT INTO commandes (
             id_statut_commande,
+            id_commune,
+            livraison_adresse,
+            livraison_adresse_complement,
+            livraison_code_postal,
             id_utilisateur,
             date_livraison, 
             id_horaire_livraison,
-            id_commune,
             nom_menu, 
-            nb_personnes,
+            nombre_personnes,
             prix_menu,
             frais_livraison_euros,
             prix_total, 
             date_commande,
-            nb_entree1,
-            nb_entree2,
-            nb_dessert1, 
-            nb_dessert2
-    )
+            nombre_entree1,
+            nombre_entree2,
+            nombre_dessert1, 
+            nombre_dessert2,
+            pret_materiel  
+            )
 
             VALUES (
             :id_statut_commande,
+            :id_commune,
+            :livraison_adresse,
+            :livraison_adresse_complement,
+            :livraison_code_postal,
             :id_utilisateur,
             :date_livraison,
             :id_horaire_livraison,
-            :id_commune,
             :nom_menu, 
             :nb_personnes, 
             :prix_menu, 
@@ -141,17 +212,21 @@ $prix_total = $prix_menu + $frais_livraison_euros;
             :nb_entree1,
             :nb_entree2,
             :nb_dessert1,  
-            :nb_dessert2
+            :nb_dessert2,
+            :pret_materiel
     )";
             
     try {
         $stmt = $pdo->prepare($sql);
         $stmt->execute([
             ':id_statut_commande' => $id_statut_commande,
+            ':id_commune' => $id_commune,
+            ':livraison_adresse' => $livraison_adresse,
+            ':livraison_adresse_complement' => $livraison_adresse_complement,
+            ':livraison_code_postal' => $livraison_code_postal,
             ':id_utilisateur' => $id_utilisateur,
             ':date_livraison' => $date_livraison,
             ':id_horaire_livraison' => $id_horaire_livraison,
-            ':id_commune' => $id_commune,
             ':nom_menu' => $nom_menu,
             ':nb_personnes' => $nb_personnes,
             ':prix_menu' => $prix_menu,
@@ -161,12 +236,21 @@ $prix_total = $prix_menu + $frais_livraison_euros;
             ':nb_entree1' => $nb_entree1,
             ':nb_entree2' => $nb_entree2,
             ':nb_dessert1' => $nb_dessert1,
-            ':nb_dessert2' => $nb_dessert2
+            ':nb_dessert2' => $nb_dessert2,
+            ':pret_materiel' => $pret_materiel
         ]);
 
+        // Envoi du mail de confirmation
+        require_once __DIR__ . '/email_confirmation_commande.php';
+        
         header("Location: espace_utilisateur.php?commande=success");
 exit;
+}
 
-} catch (PDOException $e) {
-    die("Erreur lors de l'enregistrement de la commande.");
+catch (PDOException $e) {
+    error_log(
+        "Erreur d'enregistrement de la commande : " . $e->getMessage()
+    );
+
+    die("Une erreur est survenue lors de l'enregistrement de la commande.");
 }
