@@ -19,13 +19,14 @@
           <?php include "menu_burger.php"; ?>
       </section>
       <section>    
-          <h1>Inscription</h1>
+          <h1>Formulaire d'inscription</h1>
       </section> 
       <section class="logo">
         <img src="images/logo1.png" alt="Logo de Vite et Gourmand, la plate-forme pour manger vite et bien"/>
       </section>
     </header>
     <main>
+      <section class="presentation">
       <p>
         Soyez les bienvenus chez Vite & Gourmand, l'endroit où l'on mange vite
         et bien !
@@ -41,6 +42,7 @@
         institution, association), Merci de remplir la case "Raison sociale"
         puis les données de la personne qui passe la commande
       </p>
+      </section>
       <form action="traitement_inscription.php" method="post"> 
         <fieldset>
           <legend class="legend">Vos Données Personnelles</legend>
@@ -56,8 +58,8 @@
             <label for="civilite">CIVILITÉ :</label>
             <select id="civilite" name="civilite">
               <option value="">Choisir</option>
-              <option value="monsieur">Monsieur</option>
-              <option value="madame">Madame</option>
+              <option value="Monsieur">Monsieur</option>
+              <option value="Madame">Madame</option>
             </select>
           </p>
             <label for="prenom">PRÉNOM *:</label>
