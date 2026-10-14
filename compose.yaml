@@ -1,0 +1,27 @@
+services:
+  web:
+    build: .
+    environment:
+      DB_HOST: db
+      DB_NAME: vite_et_gourmand
+      DB_USER: vite_user
+      DB_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - "8080:80"
+    volumes:
+      - ./:/var/www/html
+    depends_on:
+      - db
+
+  db:
+    image: mariadb:10.11
+    environment:
+      MYSQL_DATABASE: vite_et_gourmand
+      MYSQL_USER: vite_user
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:

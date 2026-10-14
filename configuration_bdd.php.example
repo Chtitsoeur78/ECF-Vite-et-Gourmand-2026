@@ -1,0 +1,10 @@
+<?php
+//Connexion à la base de données locale et Docker
+$host = getenv('DB_HOST') ?: 'localhost';
+$dbname = getenv('DB_NAME') ?: 'vite_et_gourmand';
+$username = getenv('DB_USER') ?: 'votrenom_utilisateur*';
+$password = getenv('DB_PASSWORD');
+
+if ($password === false) {
+    $password = 'Votremotdepasse3*';
+}

@@ -1,0 +1,8 @@
+<?php
+//Connexion à la base de données sur
+return [
+    "adresse" => "mongodb+srv://VOTRE_CLUSTER.mongodb.net/?appName=Cluster0",",
+    "utilisateur" => "votrenom_utilisateur",
+    "mot_de_passe" => "votremotdepasse_personnel",
+    "base_de_donnees" => "vite_et_gourmand"
+];
